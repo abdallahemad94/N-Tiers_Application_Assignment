@@ -13,5 +13,6 @@
     <label id="lblFilterID" class="ViewControls">Filter ID</label>
     <asp:TextBox ID="txtFilterID" CssClass="ViewControls" ClientIDMode="Static" runat="server" />
     <br />
-    <asp:Button ID="btnView" CssClass="ViewControls" ClientIDMode="Static" runat="server" Text="View Data" />
+    <asp:Button ID="btnView" CssClass="ViewControls" ClientIDMode="Static" runat="server" Text="View Data" OnClick="btnView_Click" />
+    <asp:Label ID="test" runat="server" Text="test"></asp:Label>
 </fieldset>

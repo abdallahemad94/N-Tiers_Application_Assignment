@@ -70,6 +70,7 @@
     <Content Include="ControlsDelete.ascx" />
     <Content Include="ControlsInsert.ascx" />
     <Content Include="ControlsView.ascx" />
+    <Content Include="GridView.ascx" />
     <Content Include="Home.aspx" />
     <Content Include="Styles\Home.css" />
     <Content Include="Web.config" />
@@ -96,6 +97,13 @@
     <Compile Include="ControlsView.ascx.designer.cs">
       <DependentUpon>ControlsView.ascx</DependentUpon>
     </Compile>
+    <Compile Include="GridView.ascx.cs">
+      <DependentUpon>GridView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GridView.ascx.designer.cs">
+      <DependentUpon>GridView.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -113,6 +121,12 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NTiers.AppLogic\NTiers.AppLogic.csproj">
+      <Project>{1eea2040-d034-40d9-8e21-0db24d5ea5c3}</Project>
+      <Name>NTiers.AppLogic</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

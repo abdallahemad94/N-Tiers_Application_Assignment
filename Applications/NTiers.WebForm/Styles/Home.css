@@ -1,3 +1,16 @@
-﻿.ControlsWrapper {
+﻿#ControlsWrapper {
     width: 40%;
+    float: left;
 }
+
+#DataWrapper{
+    width: 45%;
+    float: right;
+}
+
+input[type="text"] {
+    width: 80px;
+    left: 170px;
+    position: absolute;
+}
+
