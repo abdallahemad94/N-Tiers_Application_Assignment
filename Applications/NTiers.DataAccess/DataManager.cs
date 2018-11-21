@@ -3,7 +3,7 @@ using System.Collections;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace NTiers.DataAccess
+namespace NTiers.DataLayer
 {
     public abstract class DataManager
     {
