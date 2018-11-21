@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 
 namespace NTiers.DataAccess
 {
-    public abstract class MainData
+    public abstract class DataManager
     {
         protected SqlCommand Command;
 

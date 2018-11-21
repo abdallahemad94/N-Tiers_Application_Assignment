@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 
 namespace NTiers.DataAccess
 {
-    public class Instructors : MainData
+    public class Instructors : DataManager
     {
         public override DataTable GetAll()
         {
