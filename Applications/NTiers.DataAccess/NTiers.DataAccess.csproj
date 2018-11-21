@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Courses.cs" />
+    <Compile Include="DataSchema.cs" />
     <Compile Include="Enrollments.cs" />
     <Compile Include="Instructors.cs" />
     <Compile Include="DataManager.cs" />
