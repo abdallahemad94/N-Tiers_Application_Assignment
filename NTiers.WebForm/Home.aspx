@@ -8,15 +8,11 @@
     <title>NTiers Application</title>
     <link href="Styles/Home.css" rel="stylesheet" type="text/css" />
     <script src="Scripts/jquery-3.3.1.js" type="text/javascript"></script>
+    <script src="Scripts/Home.js" type="text/javascript"></script>
 </head>
 <body>
     <form id="form1" runat="server">
-        <asp:ScriptManager runat="server">
-            <Scripts>
-                <asp:ScriptReference Name="jquery" />
-            </Scripts>
-        </asp:ScriptManager>
-        <script src="Scripts/Home.js" type="text/javascript"></script>
+        <asp:ScriptManager runat="server"></asp:ScriptManager>
         <div id="ControlsWrapper">
             <label id="lblTables">Table: </label>
             <asp:DropDownList ID="ddlTables" ClientIDMode="Static" runat="server">
@@ -25,8 +21,8 @@
             <br />
 
             <div id="ViewWrapper">
-                <fieldset class="ViewControls FieldInfo">
-                    <legend class="ViewControls FieldInfo">View</legend>
+                <fieldset>
+                    <legend>View</legend>
                     <label id="lblFilterBy" class="ViewControls">Filter By: </label>
                     <asp:DropDownList ID="ddlFilter" CssClass="ViewControls" ClientIDMode="Static" runat="server">
                         <asp:ListItem Value="None" Text="None" Selected="True" />
@@ -35,12 +31,11 @@
                         <asp:ListItem Value="Instructor" Text="Instructor" />
                     </asp:DropDownList>
                     <br /><br />
-                    <label id="lblFilterID" class="ViewControls FilterOptions">Filter ID</label>
+                    <label id="lblFilterID" class="ViewControls FilterOpyions">Filter ID</label>
                     <asp:TextBox ID="txtFilterID" CssClass="ViewControls FilterOptions" ClientIDMode="Static" runat="server" />
-                    <asp:CustomValidator ID="ValidateFilterID" CssClass="ValidationControls" ClientIDMode="Static" runat="server"
-                        ControlToValidate="txtFilterID" ClientValidationFunction="ValidateFilterID"
-                        ErrorMessage="Please Enter a valid Number" ForeColor="Red" ValidateEmptyText="True" 
-                        ValidationGroup="FilterData" />
+                    <asp:CustomValidator ID="ValidateFilterID" CssClass="ValidationControls" ClientIDMode="Static"
+                        runat="server" ControlToValidate="txtFilterID" ClientValidationFunction="ValidateID"
+                        ErrorMessage="Please Enter A Valid Number" ForeColor="Red" ValidationGroup="FilterData"/>
                     <br /><br />
                     <asp:Button ID="btnView" CssClass="ViewControls" ClientIDMode="Static" runat="server" 
                         Text="View Data" OnClick="btnView_Click" ValidationGroup="FilterData" />
@@ -48,8 +43,8 @@
             </div>
 
             <div id="InsertWrapper">
-                <fieldset class="InsertControls FieldInfo">
-                    <legend class="InsertControls FieldInfo">Insert</legend>
+                <fieldset>
+                    <legend>Insert</legend>
                     <label id="lblInsertID" class="InsertControls">insert id</label>
                     <asp:TextBox ID="txtInsertID" CssClass="InsertControls" ClientIDMode="Static" runat="server" />
                     <asp:CustomValidator ID="ValidateInsertID" CssClass="ValidationControls" ClientIDMode="Static"
@@ -77,8 +72,8 @@
             </div>
 
             <div id="DeleteWrapper">
-                <fieldset class="DeleteControls FieldInfo">
-                    <legend class="DeleteControls FieldInfo">Delete</legend>
+                <fieldset>
+                    <legend>Delete</legend>
                     <label id="lblDeleteID" class="DeleteControls">Delete ID</label>
                     <asp:TextBox ID="txtDeleteID" CssClass="DeleteControls" ClientIDMode ="static" runat="server" />
                     <asp:CustomValidator ID="ValidateDeleteID" CssClass="ValidationControls" ClientIDMode="Static"
@@ -92,7 +87,7 @@
 
             <div class="ValidationDiv">
                 <asp:ValidationSummary runat="server" ID="validationSummary" ClientIDMode="Static" 
-                    CssClass="ValidationControls"/>
+                    CssClass="ValidationControls" ValidationGroup="InsertData"/>
             </div>
         </div>
         
@@ -105,8 +100,8 @@
                 </Triggers>
                 <ContentTemplate>
                     <asp:DataGrid ID="dataGrid" ClientIDMode="Static" runat="server">
-                        <AlternatingItemStyle BackColor="#66CCFF" />
-                        <HeaderStyle BackColor="#6699FF" HorizontalAlign="Center" VerticalAlign="Middle" />
+                        <AlternatingItemStyle BackColor="#6699FF" />
+                        <HeaderStyle BackColor="#66CCFF" HorizontalAlign="Center" VerticalAlign="Middle" />
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                     </asp:DataGrid>
                 </ContentTemplate>

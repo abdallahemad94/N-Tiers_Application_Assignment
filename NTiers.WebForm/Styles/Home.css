@@ -1,0 +1,16 @@
+﻿#ControlsWrapper {
+    width: 45%;
+    float: left;
+}
+
+#DataWrapper{
+    width: 45%;
+    float: right;
+    overflow-y: auto;
+}
+
+input[type="text"] {
+    width: 80px;
+    left: 170px;
+    position: absolute;
+}

@@ -15,8 +15,8 @@ namespace NTiers.WebForm
         protected void Page_Load(object sender, EventArgs e)
         {
             if (ddlTables.Items.Count < 2) { ddlTables_Fill(); }
-            ddlTables.Attributes.Add("onchange", "ddlTables_Change()");
-            ddlFilter.Attributes.Add("onchange", "ddlFilter_Change()");
+            ddlTables.Attributes.Add("onchange", "ddlTables_Change");
+            ddlFilter.Attributes.Add("onchange", "ddlTables_Change");
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace NTiers.WebForm
         {
             //TODO: Reference Database tables Retreive Methods
             List<string> tables = ViewData.GetTables();
-            foreach (string table in tables)
+            foreach(string table in tables)
             {
                 ddlTables.Items.Add(table);
             }
@@ -48,7 +48,7 @@ namespace NTiers.WebForm
             ViewData viewData = new ViewData(SelectedTable);
             DataTable dataTable;
 
-            if (SelectedFilter != "None")
+            if(SelectedFilter != "None")
             {
                 dataTable = viewData.GetFilterdData(SelectedFilter, IdInput);
             }

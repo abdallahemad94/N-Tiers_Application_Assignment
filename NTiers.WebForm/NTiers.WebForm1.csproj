@@ -7,7 +7,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{7DE74B81-9C3D-4283-8F1F-317644E66740}</ProjectGuid>
+    <ProjectGuid>{AA193BA3-2856-4884-A5A0-81755A464831}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -67,20 +67,63 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ControlsDelete.ascx" />
+    <Content Include="ControlsInsert.ascx" />
+    <Content Include="ControlsView.ascx" />
     <Content Include="Global.asax" />
-    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="GridView.ascx" />
     <Content Include="Home.aspx" />
+    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\Home.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Styles\Home.css" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="ControlsDelete.ascx.cs">
+      <DependentUpon>ControlsDelete.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlsDelete.ascx.designer.cs">
+      <DependentUpon>ControlsDelete.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ControlsInsert.ascx.cs">
+      <DependentUpon>ControlsInsert.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlsInsert.ascx.designer.cs">
+      <DependentUpon>ControlsInsert.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ControlsView.ascx.cs">
+      <DependentUpon>ControlsView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlsView.ascx.designer.cs">
+      <DependentUpon>ControlsView.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="GridView.ascx.cs">
+      <DependentUpon>GridView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GridView.ascx.designer.cs">
+      <DependentUpon>GridView.ascx</DependentUpon>
     </Compile>
     <Compile Include="Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>
@@ -103,10 +146,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\NTiers.AppLogic\NTiers.AppLogic.csproj">
       <Project>{1eea2040-d034-40d9-8e21-0db24d5ea5c3}</Project>
       <Name>NTiers.AppLogic</Name>
@@ -125,7 +164,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>52955</DevelopmentServerPort>
+          <DevelopmentServerPort>64001</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:63232/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
