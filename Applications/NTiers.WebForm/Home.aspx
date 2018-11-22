@@ -39,7 +39,7 @@
                     <asp:TextBox ID="txtFilterID" CssClass="ViewControls FilterOptions" ClientIDMode="Static" runat="server" />
                     <asp:CustomValidator ID="ValidateFilterID" CssClass="ValidationControls" ClientIDMode="Static" runat="server"
                         ControlToValidate="txtFilterID" ClientValidationFunction="ValidateFilterID"
-                        ErrorMessage="Please Enter a valid Number" ForeColor="Red" ValidateEmptyText="True" 
+                        ErrorMessage="Please enter a valid number!" ForeColor="Red" ValidateEmptyText="True" 
                         ValidationGroup="FilterData" />
                     <br /><br />
                     <asp:Button ID="btnView" CssClass="ViewControls" ClientIDMode="Static" runat="server" 
@@ -52,15 +52,17 @@
                     <legend class="InsertControls FieldInfo">Insert</legend>
                     <label id="lblInsertID" class="InsertControls">insert id</label>
                     <asp:TextBox ID="txtInsertID" CssClass="InsertControls" ClientIDMode="Static" runat="server" />
-                    <asp:CustomValidator ID="ValidateInsertID" CssClass="ValidationControls" ClientIDMode="Static"
-                        runat="server" ControlToValidate="txtInsertID" ClientValidationFunction="ValidateID"
-                        ErrorMessage="Please Enter A Valid Number" ForeColor="Red" ValidationGroup="InsertData"/>
+                    <asp:CustomValidator ID="ValidateInsertID" CssClass="ValidationControls" ClientIDMode="Static" runat="server"
+                        ControlToValidate="txtInsertID" ClientValidationFunction="ValidateID"
+                        ErrorMessage="Please enter a valid number!" ForeColor="Red" ValidateEmptyText="true"
+                        ValidationGroup="InsertData" />
                     <br /><br />
                     <label id="lblInsertName" class="InsertControls">Insert Name</label>
                     <asp:TextBox ID="txtInsertName" CssClass="InsertControls" ClientIDMode="Static" runat="server" />
                     <asp:CustomValidator ID="ValidateInsertName" CssClass="ValidationControls" ClientIDMode="Static"
                         runat="server" ControlToValidate="txtInsertName" ClientValidationFunction="ValidateName"
-                        ErrorMessage="Please Enter A Name" ForeColor="Red" ValidationGroup="InsertData"/>
+                        ErrorMessage="Please enter a name!" ForeColor="Red" ValidateEmptyText="true"
+                        ValidationGroup="InsertData" />
                     <br /><br />
                     <label id="lblCourseDesc" class="InsertControls">Course Description: </label>
                     <asp:TextBox ID="txtCourseDesc" CssClass="InsertControls" ClientIDMode="Static" runat="server" />
@@ -69,7 +71,8 @@
                     <asp:TextBox ID="txtCourseInst" CssClass="InsertControls" ClientIDMode="Static" runat="server" />
                     <asp:CustomValidator ID="ValidateCourseInst" CssClass="ValidationControls" ClientIDMode="Static"
                         runat="server" ControlToValidate="txtCourseInst" ClientValidationFunction="ValidateID"
-                        ErrorMessage="Please Enter A Valid Number" ForeColor="Red" ValidationGroup="InsertData"/>
+                        ErrorMessage="Please enter a valid number!" ForeColor="Red" ValidationGroup="InsertData"
+                        ValidateEmptyText="true"/>
                     <br /><br />
                     <asp:Button ID="btnInsert" CssClass="InsertControls" ClientIDMode="Static" runat="server" 
                         Text="Insert Data" OnClick="btnInsert_Click" ValidationGroup="InsertData"/>
@@ -83,16 +86,12 @@
                     <asp:TextBox ID="txtDeleteID" CssClass="DeleteControls" ClientIDMode ="static" runat="server" />
                     <asp:CustomValidator ID="ValidateDeleteID" CssClass="ValidationControls" ClientIDMode="Static"
                         runat="server" ControlToValidate="txtDeleteID" ClientValidationFunction="ValidateID"
-                        ErrorMessage="Please Enter A Valid Number" ForeColor="Red" ValidationGroup="DeleteData"/>
+                        ErrorMessage="Please enter a valid number!" ForeColor="Red" ValidationGroup="DeleteData"
+                        ValidateEmptyText="true" />
                     <br /><br />
                     <asp:Button ID="btnDelete" CssClass="DeleteControls" ClientIDMode="Static" runat="server"
                         Text="Delete Item" OnClick="btnDelete_Click"  ValidationGroup="DeleteData"/>
                 </fieldset>
-            </div>
-
-            <div class="ValidationDiv">
-                <asp:ValidationSummary runat="server" ID="validationSummary" ClientIDMode="Static" 
-                    CssClass="ValidationControls"/>
             </div>
         </div>
         

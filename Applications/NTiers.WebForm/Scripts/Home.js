@@ -8,6 +8,7 @@
 
 function ddlTables_Change() {
     CleartextBoxes();
+    ClearValidationControls();
     $("#ddlFilter").val("None");
     var SelectedTable = $("#ddlTables").val();
     if (SelectedTable === "None") {
@@ -139,4 +140,28 @@ function ValidateID(src, args) {
     else {
         args.IsValid = false;
     }
+}
+
+function ValidateName(src, args) {
+    var SelectedTable = $("#ddlTables").val();
+
+    if (SelectedTable === "Enrollments") {
+        $("#ValidateInsertName").text("Please enter a valid number!");
+        ValidateID(src, args);
+    }
+    else {
+        $("#ValidateInsertName").text("Please enter a name!");
+        if (args.Value.length > 0) { args.IsValid = true; }
+        else { args.IsValid = false; }
+    }
+    if (SelectedTable === "Courses") {
+        $("#ValidateCourseInst").show();
+    }
+    else {
+        $("#ValidateCourseInst").hide();
+    }
+}
+
+function ClearValidationControls() {
+    $(".ValidationControls").css("visibility", "hidden");
 }

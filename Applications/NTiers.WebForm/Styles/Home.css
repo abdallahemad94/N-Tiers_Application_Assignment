@@ -9,25 +9,3 @@
     overflow-y: auto;
 }
 
-input[type="text"] {
-    width: 80px;
-    left: 130px;
-    position: absolute;
-}
-
-#InsertWrapper input[type="text"] {
-    left: 155px;
-}
-
-#txtInsertName {
-    width: 120px;
-}
-
-#txtCourseDesc {
-    width: 250px;
-}
-
-.ValidationControls {
-    position: absolute;
-    left: 220px;
-}
