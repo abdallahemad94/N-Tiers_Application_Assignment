@@ -1,8 +1,22 @@
 ﻿$(document).ready(
     () => {
-        HideViewControls();
-        HideInsertControls();
-        HideDeleteControls();
+        if (document.cookie) {
+            var SelectedTable = GetCookie("Table");
+            var SelectedFilter = GetCookie("Filter");
+            if (SelectedTable) {
+                $("#ddlTables").val(SelectedTable);
+                ddlTables_Change();
+                if (SelectedFilter) {
+                    $("#ddlFilter").val(SelectedFilter);
+                    ddlFilter_Change();
+                }
+            }
+        }
+        else {
+            HideViewControls();
+            HideInsertControls();
+            HideDeleteControls();
+        }
     }
 );
 
@@ -22,6 +36,7 @@ function ddlTables_Change() {
         ShowDeleteControls(SelectedTable);
         $(".FieldInfo").css("visibility", "visible");
     }
+    SetCookie("Table", SelectedTable);
 }
 
 function ddlFilter_Change() {
@@ -33,6 +48,7 @@ function ddlFilter_Change() {
     else {
         ShowFilterOptions(SelectedFilter);
     }
+    SetCookie("Filter", SelectedFilter);
 }
 
 function CleartextBoxes() {
@@ -123,8 +139,17 @@ function ValidateFilterID(src, args) {
     else {
         ValidateID(src, args);
     }
-        
-} 
+}
+
+function ValidateCourseInst(src, args) {
+    var SelectedTable = $("#ddlTables").val();
+    if (SelectedTable === "Courses") {
+        ValidateID(src, args);
+    }
+    else {
+        args.IsValid = true;
+    }
+}
 
 function ValidateID(src, args) {
     var pattern = /^\d+$/;
@@ -154,14 +179,23 @@ function ValidateName(src, args) {
         if (args.Value.length > 0) { args.IsValid = true; }
         else { args.IsValid = false; }
     }
-    if (SelectedTable === "Courses") {
-        $("#ValidateCourseInst").show();
-    }
-    else {
-        $("#ValidateCourseInst").hide();
-    }
 }
 
 function ClearValidationControls() {
     $(".ValidationControls").css("visibility", "hidden");
+}
+
+function SetCookie(cookieName, cookieValue) {
+    var date = new Date();
+    date.setHours(date.getHours() + 1);
+    document.cookie = cookieName + "=" + cookieValue + "; expires=" + date.toUTCString();;
+}
+
+function GetCookie(cookieName) {
+    var pattern = new RegExp(cookieName + "=(\\w+);?");
+    if (document.cookie.match(pattern) != null) {
+        var value = (document.cookie.match(pattern)[1]) ? document.cookie.match(pattern)[1] : "None";
+        return value;
+    }
+    return null;
 }

@@ -7,7 +7,6 @@
     <meta charset="utf-8" />
     <title>NTiers Application</title>
     <link href="Styles/Home.css" rel="stylesheet" type="text/css" />
-    <script src="Scripts/jquery-3.3.1.js" type="text/javascript"></script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -17,6 +16,7 @@
             </Scripts>
         </asp:ScriptManager>
         <script src="Scripts/Home.js" type="text/javascript"></script>
+        
         <div id="ControlsWrapper">
             <label id="lblTables">Table: </label>
             <asp:DropDownList ID="ddlTables" ClientIDMode="Static" runat="server">
@@ -70,7 +70,7 @@
                     <label id="lblCourseInst" class="InsertControls">Coures Instructor: </label>
                     <asp:TextBox ID="txtCourseInst" CssClass="InsertControls" ClientIDMode="Static" runat="server" />
                     <asp:CustomValidator ID="ValidateCourseInst" CssClass="ValidationControls" ClientIDMode="Static"
-                        runat="server" ControlToValidate="txtCourseInst" ClientValidationFunction="ValidateID"
+                        runat="server" ControlToValidate="txtCourseInst" ClientValidationFunction="ValidateCourseInst"
                         ErrorMessage="Please enter a valid number!" ForeColor="Red" ValidationGroup="InsertData"
                         ValidateEmptyText="true"/>
                     <br /><br />
@@ -103,7 +103,7 @@
                     <asp:AsyncPostBackTrigger ControlID="btnDelete" EventName="Click" />
                 </Triggers>
                 <ContentTemplate>
-                    <asp:DataGrid ID="dataGrid" ClientIDMode="Static" runat="server">
+                    <asp:DataGrid ID="dataGrid" ClientIDMode="Static" runat="server" HorizontalAlign="Center">
                         <AlternatingItemStyle BackColor="#66CCFF" />
                         <HeaderStyle BackColor="#6699FF" HorizontalAlign="Center" VerticalAlign="Middle" />
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
@@ -111,6 +111,7 @@
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>
+
     </form>
 </body>
 </html>

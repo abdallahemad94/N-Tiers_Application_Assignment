@@ -9,3 +9,14 @@
     overflow-y: auto;
 }
 
+input[type="text"] {
+    width: 80px;
+}
+
+#txtInsertName {
+    width: 120px;
+}
+
+#txtCourseDesc {
+    width: 250px;
+}

@@ -77,6 +77,7 @@
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <Content Include="Styles\Home.css" />
+    <Content Include="Styles\normalize.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

@@ -6,8 +6,6 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
 using NTiers.AppLogic;
-using System.Text.RegularExpressions;
-
 
 namespace NTiers.WebForm
 {
@@ -44,14 +42,14 @@ namespace NTiers.WebForm
         {
             string SelectedTable = ddlTables.SelectedValue;
             string SelectedFilter = ddlFilter.SelectedValue;
-            string IdInput = txtFilterID.Text;
+            string FilterID = txtFilterID.Text;
 
             ViewData viewData = new ViewData(SelectedTable);
             DataTable dataTable;
 
             if (SelectedFilter != "None")
             {
-                dataTable = viewData.GetFilterdData(SelectedFilter, IdInput);
+                dataTable = viewData.GetFilterdData(SelectedFilter, FilterID);
             }
             else
             {
@@ -86,8 +84,8 @@ namespace NTiers.WebForm
         protected void btnDelete_Click(object sender, EventArgs e)
         {
             string SelectedTable = ddlTables.SelectedValue;
-            DeleteData deleteData = new DeleteData(SelectedTable);
             string deleteID = txtDeleteID.Text;
+            DeleteData deleteData = new DeleteData(SelectedTable);
             deleteData.DeleteItem(deleteID);
         }
     }
