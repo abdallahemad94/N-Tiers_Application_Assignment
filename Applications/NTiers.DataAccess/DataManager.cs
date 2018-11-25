@@ -7,6 +7,7 @@ namespace NTiers.DataLayer
 {
     public abstract class DataManager
     {
+        #region Setting connection, command, and parameters
         protected SqlCommand Command;
 
         /// <summary>
@@ -37,7 +38,9 @@ namespace NTiers.DataLayer
                 this.Command.Parameters.Add(param);
             }
         }
+        #endregion
 
+        #region executing command
         /// <summary>
         /// return the result of executing a given command as a DataTable object
         /// </summary>
@@ -79,7 +82,9 @@ namespace NTiers.DataLayer
                 this.Command.Connection.Close();
             }
         }
+        #endregion
 
+        #region methods to be implemented by derived classes 
         public virtual DataTable GetAll() { return new DataTable(); }
         public virtual DataTable GetByStudent(int stdID) { throw new NotImplementedException(); }
         public virtual DataTable GetByCourse(int CourseID) { throw new NotImplementedException(); }
@@ -91,5 +96,6 @@ namespace NTiers.DataLayer
         public virtual void UpdateItem(int id1, int id2, int id3) { throw new NotImplementedException(); }
         public virtual void UpdateItem(int id1, string name, string desc, int id2) { throw new NotImplementedException(); }
         public virtual void RemoveItem(int id) { throw new NotImplementedException(); }
+        #endregion
     }
 }

@@ -4,6 +4,7 @@ namespace NTiers.AppLogic
 {
     public class MainAccess
     {
+        #region setting table name and reference to database
         protected DataManager dataManager;
 
         public string Table { get; }
@@ -26,5 +27,6 @@ namespace NTiers.AppLogic
                     break;
             }
         }
+        #endregion
     }
 }

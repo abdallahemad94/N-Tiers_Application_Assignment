@@ -4,8 +4,11 @@ namespace NTiers.AppLogic
 {
     public class InsertAccess : MainAccess
     {
+        #region constructor
         public InsertAccess(string table) : base(table) { }
+        #endregion
 
+        #region insert item
         public void InsertItem(string IDInput, string NameInput)
         {
             if (Table == "Enrollments")
@@ -49,6 +52,6 @@ namespace NTiers.AppLogic
                 throw e;
             }
         }
-
+        #endregion
     }
 }

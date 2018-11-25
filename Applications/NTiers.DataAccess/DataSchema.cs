@@ -5,6 +5,7 @@ namespace NTiers.DataLayer
 {
     public static class DataSchema
     {
+        #region get schema
         private static SqlConnection Conn = null;
         public static DataTable GetSchema(string CollectionName)
         {
@@ -23,5 +24,6 @@ namespace NTiers.DataLayer
                 return Conn.GetSchema();
             }
         }
+        #endregion
     }
 }

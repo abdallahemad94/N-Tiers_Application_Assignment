@@ -16,27 +16,6 @@ namespace NTiers.WebForm
             ddlFilter.Attributes.Add("onchange", "ddlFilter_Change()");
         }
 
-        /// <summary>
-        /// gets a list of the database tables name and append it
-        /// to the tables drop down list
-        /// </summary>
-        protected void ddlTables_Fill()
-        {
-            List<string> tables = ViewAccess.GetTables();
-            foreach (string table in tables)
-            {
-                ddlTables.Items.Add(table);
-            }
-        }
-
-        protected void dataGrid_Update()
-        {
-            dataGrid.SelectedIndex = -1;
-            dataGrid.EditIndex = -1;
-            dataGrid.DataSource = ViewState["dt"] as DataTable;
-            dataGrid.DataBind();
-        }
-
         protected void GetData(string selectedTable, string SelectedFilter = "None")
         {
             ViewAccess viewData = new ViewAccess(selectedTable);
@@ -55,9 +34,27 @@ namespace NTiers.WebForm
             dataGrid_Update();
         }
 
+        #region Tables drop down list events
+        /// <summary>
+        /// gets a list of the database tables name and append it
+        /// to the tables drop down list
+        /// </summary>
+        protected void ddlTables_Fill()
+        {
+            List<string> tables = ViewAccess.GetTables();
+            foreach (string table in tables)
+            {
+                ddlTables.Items.Add(table);
+            }
+        }
+
         protected void ddlTables_SelectedIndexChanged(object sender, EventArgs e)
         {
             string SelectedTable = ddlTables.SelectedValue;
+
+            dataGrid.SelectedIndex = -1;
+            dataGrid.EditIndex = -1;
+
             if (SelectedTable != "None")
             {
                 GetData(SelectedTable);
@@ -68,7 +65,114 @@ namespace NTiers.WebForm
                 dataGrid.DataBind();
             }
         }
+        #endregion
 
+        #region User Input Validation methods
+        protected void ValidateFilter(object source, ServerValidateEventArgs args)
+        {
+            string SelectedFilter = ddlFilter.SelectedValue;
+            if (SelectedFilter == "None")
+            {
+                args.IsValid = true;
+            }
+            else
+            {
+                ValidateID(source, args);
+            }
+        }
+
+        protected void ValidateCourseInstID(object source, ServerValidateEventArgs args)
+        {
+            if (ddlTables.SelectedValue == "Courses")
+            {
+                ValidateID(source, args);
+            }
+            else
+            {
+                args.IsValid = true;
+            }
+        }
+
+        protected void ValidateID(object source, ServerValidateEventArgs args)
+        {
+            Regex pattern = new Regex(@"^\d+$");
+            string text = args.Value;
+            args.IsValid = (text != "") ? (pattern.IsMatch(text) ? true : false) : false;
+        }
+
+        protected void ValidateName(object source, ServerValidateEventArgs args)
+        {
+            if (ddlTables.SelectedValue == "Enrollments")
+            {
+                ValidateID(source, args);
+            }
+            else
+            {
+                args.IsValid = args.Value.Length > 0 ? true : false;
+            }
+        }
+        #endregion
+
+        #region dataGrid Events and methods
+        protected void dataGrid_Update()
+        {
+            dataGrid.DataSource = ViewState["dt"] as DataTable;
+            dataGrid.DataBind();
+        }
+
+        protected void dataGrid_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            string SelectedTable = ddlTables.SelectedValue;
+            string id = dataGrid.Rows[e.RowIndex].Cells[2].Text;
+            DeleteAccess deleteData = new DeleteAccess(SelectedTable);
+            deleteData.DeleteItem(id);
+            GetData(SelectedTable);
+        }
+
+        protected void dataGrid_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+           dataGrid.EditIndex = e.NewEditIndex;
+           this.dataGrid_Update();
+        }
+
+        protected void dataGrid_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+        {
+            dataGrid.EditIndex = -1;
+            this.dataGrid_Update();
+        }
+
+        protected void dataGrid_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        {
+            if (Page.IsValid)
+            {
+                string id = e.NewValues[0].ToString(); ;
+                string name = e.NewValues[1].ToString();
+                string SelectedTable = ddlTables.SelectedValue;
+                UpdateAccess updateData = new UpdateAccess(SelectedTable);
+                switch (SelectedTable)
+                {
+                    case "Enrollments":
+                        string stdID = e.NewValues[2].ToString();
+                        updateData.UpdateItem(id, name, stdID);
+                        break;
+                    case "Courses":
+                        string courseDesc = e.NewValues[2].ToString();
+                        string courseInst = e.NewValues[3].ToString();
+                        updateData.UpdateItem(id, name, courseDesc, courseInst);
+                        break;
+                    case "Students":
+                    case "Instructors":
+                        updateData.UpdateItem(id, name);
+                        break;
+                }
+                dataGrid.SelectedIndex = -1;
+                dataGrid.EditIndex = -1;
+                GetData(SelectedTable);
+            }
+        }
+        #endregion
+
+        #region Other Events
         protected void btnFilter_Click(object sender, EventArgs e)
         {
             if (Page.IsValid)
@@ -102,112 +206,6 @@ namespace NTiers.WebForm
                 GetData(SelectedTable);
             }
         }
-
-        protected void btnDelete_RowDeleting(object sender, GridViewDeleteEventArgs e)
-        {
-            string SelectedTable = ddlTables.SelectedValue;
-            string id = dataGrid.Rows[e.RowIndex].Cells[2].Text;
-            DeleteAccess deleteData = new DeleteAccess(SelectedTable);
-            deleteData.DeleteItem(id);
-            GetData(SelectedTable);
-        }
-
-        protected void ValidateFilter(object source, ServerValidateEventArgs args)
-        {
-            string SelectedFilter = ddlFilter.SelectedValue;
-            if (SelectedFilter == "None")
-            {
-                args.IsValid = true;
-            }
-            else
-            {
-                ValidateID(source, args);
-            }
-        }
-
-        protected void ValidateID(object source, ServerValidateEventArgs args)
-        {
-            Regex pattern = new Regex(@"^\d+$");
-            string text = args.Value;
-            if (text != "")
-            {
-                if (pattern.IsMatch(text))
-                {
-                    args.IsValid = true;
-                }
-                else
-                {
-                    args.IsValid = false;
-                }
-            }
-            else
-            {
-                args.IsValid = false;
-            }
-        }
-
-        protected void ValidateName(object source, ServerValidateEventArgs args)
-        { 
-            if (ddlTables.SelectedValue == "Enrollments")
-            {
-                ValidateID(source, args);
-            }
-            else
-            {
-                args.IsValid = args.Value.Length > 0 ? true : false;
-            }
-        }
-
-        protected void ValidateCourseInstID(object source, ServerValidateEventArgs args)
-        {
-            if (ddlTables.SelectedValue == "Courses")
-            {
-                ValidateID(source, args);
-            }
-            else
-            {
-                args.IsValid = true;
-            }
-        }
-
-        protected void dataGrid_RowEditing(object sender, GridViewEditEventArgs e)
-        {
-            dataGrid.EditIndex = e.NewEditIndex;
-            this.dataGrid_Update();
-        }
-
-        protected void dataGrid_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
-        {
-            dataGrid.EditIndex = -1;
-            this.dataGrid_Update();
-        }
-
-        protected void dataGrid_RowUpdating(object sender, GridViewUpdateEventArgs e)
-        {
-            if (Page.IsValid)
-            {
-                string SelectedTable = ddlTables.SelectedValue;
-                string id = e.NewValues[0].ToString(); ;
-                string name = e.NewValues[1].ToString();
-                UpdateAccess updateData = new UpdateAccess(SelectedTable);
-                switch (SelectedTable)
-                {
-                    case "Courses":
-                        string courseDesc = e.NewValues[2].ToString();
-                        string courseInst = e.NewValues[3].ToString();
-                        updateData.UpdateItem(id, name, courseDesc, courseInst);
-                        break;
-                    case "Enrollments":
-                        string stdID = e.NewValues[2].ToString();
-                        updateData.UpdateItem(id, name, stdID);
-                        break;
-                    case "Students":
-                    case "Instructors":
-                        updateData.UpdateItem(id, name);
-                        break;
-                }
-                GetData(SelectedTable);
-            }
-        }
+        #endregion
     }
 }

@@ -3,10 +3,12 @@
         if (document.cookie) {
             var SelectedTable = GetCookie("Table");
             var SelectedFilter = GetCookie("Filter");
+
             if (SelectedTable) {
                 $("#ddlTables").val(SelectedTable);
                 ddlTables_Change();
                 setTimeout("__doPostBack('ddlTables', '\')", 0);
+
                 if (SelectedFilter) {
                     $("#ddlFilter").val(SelectedFilter);
                     ddlFilter_Change();
@@ -16,32 +18,41 @@
         else {
             HideViewControls();
             HideInsertControls();
-            HideUpdateControls();
         }
     }
 );
 
+// #region Tables drop down list events and methods
 function ddlTables_Change() {
     CleartextBoxes();
     ClearValidationControls();
-    $("#lblID").text("");
-    $("#ddlFilter").val("None");
+    $("#ddlFilter").val("None"); //reset filter
+
     var SelectedTable = $("#ddlTables").val();
+
     if (SelectedTable === "None") {
         HideViewControls();
         HideInsertControls();
-        HideUpdateControls();
     }
     else {
         ShowViewControls();
         ShowInsertControls(SelectedTable);
-        ShowUpdateControls(SelectedTable);
         HideFilterOptions();
         $(".FieldInfo").css("visibility", "visible");
     }
     SetCookie("Table", SelectedTable);
 }
 
+function CleartextBoxes() {
+    $("input[type='text']").val("");
+}
+
+function ClearValidationControls() {
+    $(".ValidationControls").css("visibility", "hidden");
+}
+// #endregion
+
+// #region Filters drop down list events and methods
 function ddlFilter_Change() {
     $("#txtFilterID").val("");
     var SelectedFilter = $("#ddlFilter").val();
@@ -54,25 +65,29 @@ function ddlFilter_Change() {
     SetCookie("Filter", SelectedFilter);
 }
 
-function CleartextBoxes() {
-    $("input[type='text']").val("");
+function ShowFilterOptions(selectedFilter) {
+    $("#lblFilterID").text(selectedFilter + " ID: ");
+    $(".FilterOptions").css("visibility", "visible");
 }
 
+function HideFilterOptions() {
+    $(".FilterOptions").css("visibility", "hidden");
+}
+// #endregion
+
+// #region View Controls methods and events
 function HideViewControls() {
     $(".ViewControls").css("visibility", "hidden");
 }
 
-function HideInsertControls() {
-    $(".InsertControls").css("visibility", "hidden");
-}
-
-function HideUpdateControls() {
-    $(".UpdateControls").css("visibility", "hidden");
-}
-
 function ShowViewControls() {
     $(".ViewControls").css("visibility", "visible");
-    $(".FilterOptions").css("visibility", "hidden");
+}
+// #endregion
+
+// #region Insert Controls methods and events
+function HideInsertControls() {
+    $(".InsertControls").css("visibility", "hidden");
 }
 
 function ShowInsertControls(selectedTable) {
@@ -112,58 +127,9 @@ function CoursesInsertOptions() {
 function HideCourseInsertOptions() {
     $(".CourseInsert").css("visibility", "hidden");
 }
+// #endregion
 
-function HideFilterOptions() {
-    $(".FilterOptions").css("visibility", "hidden");
-}
-
-function ShowFilterOptions(selectedFilter) {
-    $("#lblFilterID").text(selectedFilter + " ID: ");
-    $(".FilterOptions").css("visibility", "visible");
-}
-
-function ShowUpdateControls(selectedTable) {
-    switch (selectedTable) {
-        case "Students":
-            UpdateOptions("Student");
-            break;
-        case "Courses":
-            CoursesUpdateOptions();
-            break;
-        case "Instructors":
-            UpdateOptions("Instructor");
-            break;
-        case "Enrollments":
-            UpdateOptions("Enrollment");
-            break;
-    }
-}
-
-function UpdateOptions(text) {
-    $("#lblUpdateID").text("Selected " + text + " ID: ");
-    $("#lblUpdateName").text(text + " Name: ");
-    $(".UpdateControls").css("visibility", "visible");
-    HideCourseUpdateOptions();
-    if (text == "Enrollment") {
-        $("#lblUpdateName").text("Course ID: ");
-        $("#lblUpdateCourseDesc").text("Studentd ID: ");
-        $("#lblUpdateCourseDesc").css("visibility", "visible");
-        $("#txtUpdateCourseDesc").css("visibility", "visible");
-    }
-}
-
-function CoursesUpdateOptions() {
-    $("#lblUpdateID").text("Selected Course ID: ");
-    $("#lblUpdateName").text("Course Name: ");
-    $("#lblUpdateCourseDesc").text("Course Description: ")
-    $(".UpdateControls").css("visibility", "visible");
-}
-
-function HideCourseUpdateOptions() {
-    $(".CourseUpdate").css("visibility", "hidden");
-}
-
-
+// #region User input validation methods
 function ValidateFilterID(src, args) {
     var SelectedFilter = $("#ddlFilter").val();
     if (SelectedFilter === "None") {
@@ -209,15 +175,13 @@ function ValidateName(src, args) {
     }
     else {
         $("#ValidateInsertName").text("Please enter a name!");
-        if (args.Value.length > 0) { args.IsValid = true; }
-        else { args.IsValid = false; }
+        args.IsValid = (args.Value.length > 0) ? true : false;
     }
 }
 
-function ClearValidationControls() {
-    $(".ValidationControls").css("visibility", "hidden");
-}
+// #endregion
 
+// #region Cookies Methods
 function SetCookie(cookieName, cookieValue) {
     var date = new Date();
     date.setHours(date.getHours() + 1);
@@ -232,3 +196,4 @@ function GetCookie(cookieName) {
     }
     return null;
 }
+// #endregion

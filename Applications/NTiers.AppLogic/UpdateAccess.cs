@@ -4,8 +4,11 @@ namespace NTiers.AppLogic
 {
     public class UpdateAccess : MainAccess
     {
+        #region constructor
         public UpdateAccess(string table) : base(table) { }
+        #endregion
 
+        #region update item
         public void UpdateItem(string id, string name)
         {
             try
@@ -47,5 +50,6 @@ namespace NTiers.AppLogic
                 throw e;
             }
         }
+        #endregion
     }
 }

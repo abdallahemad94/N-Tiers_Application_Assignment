@@ -93,7 +93,7 @@
 
                 <ContentTemplate>
                     <asp:GridView ID="dataGrid" runat="server" CellPadding="3" ForeColor="#333333" GridLines="None" HorizontalAlign="Center" 
-                        CellSpacing="1" OnRowDeleting="btnDelete_RowDeleting" OnRowEditing="dataGrid_RowEditing" 
+                        CellSpacing="1" OnRowDeleting="dataGrid_RowDeleting" OnRowEditing="dataGrid_RowEditing" 
                         OnRowCancelingEdit="dataGrid_RowCancelingEdit" 
                         OnRowUpdating="dataGrid_RowUpdating">  
                         <Columns>
@@ -120,7 +120,6 @@
                         <SortedDescendingCellStyle BackColor="#E9EBEF" />  
                         <SortedDescendingHeaderStyle BackColor="#4870BE" />  
                     </asp:GridView> 
-                    <br /><br />
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>

@@ -7,8 +7,11 @@ namespace NTiers.AppLogic
 {
     public class ViewAccess : MainAccess
     {
+        #region constructor
         public ViewAccess(string table) : base(table) { }
+        #endregion
 
+        #region get tables names
         public static List<string> GetTables()
         {
             DataTable Schema = DataSchema.GetSchema("Tables");
@@ -19,7 +22,9 @@ namespace NTiers.AppLogic
             }
             return Tables;
         }
+        #endregion
 
+        #region get tables data
         public DataTable GetUnFilterdData()
         {
             return dataManager.GetAll();
@@ -52,5 +57,6 @@ namespace NTiers.AppLogic
 
             return dataTable;
         }
+        #endregion
     }
 }

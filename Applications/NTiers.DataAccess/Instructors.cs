@@ -5,6 +5,7 @@ namespace NTiers.DataLayer
 {
     public class Instructors : DataManager
     {
+        #region retrive data
         public override DataTable GetAll()
         {
             SetCommand("Instructors_GetAll");
@@ -43,7 +44,9 @@ namespace NTiers.DataLayer
 
             return GetData();
         }
+        #endregion
 
+        #region add date
         public override void AddItem(int InstID, string InstName)
         {
             string[] ParamsName = { "@InstID", "@InstName" };
@@ -53,7 +56,9 @@ namespace NTiers.DataLayer
             AddParameters(2, ParamsName, ParamsValue);
             ExecuteNonQuery();
         }
+        #endregion
 
+        #region update date
         public override void UpdateItem(int InstID, string InstName)
         {
             string[] ParamsName = { "@InstID", "@InstName" };
@@ -63,7 +68,9 @@ namespace NTiers.DataLayer
             AddParameters(2, ParamsName, ParamsValue);
             ExecuteNonQuery();
         }
+        #endregion
 
+        #region remove date
         public override void RemoveItem(int InstID)
         {
             string[] ParamsName = { "@InstID" };
@@ -73,5 +80,6 @@ namespace NTiers.DataLayer
             AddParameters(1, ParamsName, ParamsValue);
             ExecuteNonQuery();
         }
+        #endregion
     }
 }

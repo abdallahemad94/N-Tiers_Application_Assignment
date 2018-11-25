@@ -4,8 +4,11 @@ namespace NTiers.AppLogic
 {
     public class DeleteAccess : MainAccess
     {
+        #region constructor
         public DeleteAccess(string table) :  base(table) { }
+        #endregion
 
+        #region delete item
         public void DeleteItem(string userInput)
         {
             try
@@ -18,5 +21,6 @@ namespace NTiers.AppLogic
                 throw e;
             }
         }
+        #endregion
     }
 }
