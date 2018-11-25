@@ -80,30 +80,6 @@
                         Text="Insert Data" OnClick="btnInsert_Click" ValidationGroup="InsertData"/>
                 </fieldset>
             </div>
-
-            <div class="UpdateWrapper">
-                <fieldset class="UpdateControls">
-                    <legend class="UpdateControls">Update</legend>
-                    <label id="lblUpdateID" class="UpdateControls">id</label>
-                    <asp:UpdatePanel runat="server" ID="pnlUpdate" ClientIDMode="Static" RenderMode="Inline">
-                        <ContentTemplate>
-                            <asp:Label runat="server" ID="lblID" CssClass="UpdateControls" Text="" ClientIDMode="Static"></asp:Label>
-                        </ContentTemplate>
-                    </asp:UpdatePanel>
-                    <br /><br />
-                    <label id="lblUpdateName" class="UpdateControls">name</label>
-                    <asp:TextBox ID="txtUpdateName" CssClass="UpdateControls" ClientIDMode="Static" runat="server"></asp:TextBox>
-                    <br /><br />
-                    <label id="lblUpdateCourseDesc" class="UpdateControls CourseUpdate">Course Description: </label>
-                    <asp:TextBox ID="txtUpdateCourseDesc" CssClass="UpdateControls CourseUpdate" ClientIDMode="Static" runat="server"></asp:TextBox>
-                    <br /><br />
-                    <label id="lblUpdateCourseInst" class="UpdateControls CourseUpdate">Course Instructor: </label>
-                    <asp:TextBox ID="txtUpdateCourseInst" CssClass="UpdateControls CourseUpdate" ClientIDMode="Static" runat="server"></asp:TextBox>
-                    <br /><br />
-                    <asp:Button ID="btnUpdate" CssClass="UpdateControls" ClientIDMode="Static" runat="server" Text="Update Item" 
-                        OnClick="btnUpdate_Click"/>
-                </fieldset>
-            </div>
         </div>
         
         <div id="DataWrapper">
@@ -111,19 +87,27 @@
                 <Triggers>
                     <asp:AsyncPostBackTrigger ControlID="btnFilter" EventName="Click" />
                     <asp:AsyncPostBackTrigger ControlID="btnInsert" EventName="Click" />
-                    <asp:AsyncPostBackTrigger ControlID="btnUpdate" EventName="Click" />
                     <asp:AsyncPostBackTrigger ControlID="ddlTables" EventName="SelectedIndexChanged"/>
                 </Triggers>
 
                 <ContentTemplate>
                     <asp:GridView ID="dataGrid" runat="server" CellPadding="3" ForeColor="#333333" GridLines="None" HorizontalAlign="Center" 
-                        CellSpacing="1" OnRowDeleting="btnDelete_RowDeleting" OnSelectedIndexChanging="dataGrid_SelectedIndexChanging">  
-                        <AlternatingRowStyle BackColor="White" />  
+                        CellSpacing="1" OnRowDeleting="btnDelete_RowDeleting" OnRowEditing="dataGrid_RowEditing" 
+                        OnRowCancelingEdit="dataGrid_RowCancelingEdit" 
+                        OnRowUpdating="dataGrid_RowUpdating">  
                         <Columns>
-                            <asp:ButtonField ButtonType="Button" CommandName="Select" Text="Select" />
-                            <asp:ButtonField ButtonType="Button" CommandName="Delete" Text="Delete" />
+                            <asp:CommandField ButtonType="Button" ShowDeleteButton="True" />
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:Button Text="Edit" runat="server" CommandName="Edit" />
+                                </ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:Button Text="Update" runat="server" CommandName="Update"/>
+                                    <asp:Button Text="Cancel" runat="server" CommandName="Cancel" />
+                                </EditItemTemplate>
+                            </asp:TemplateField>
                         </Columns>
-
+                        <AlternatingRowStyle BackColor="White" />  
                         <EditRowStyle BackColor="#2461BF" />  
                         <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />  
                         <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />  
@@ -136,7 +120,6 @@
                         <SortedDescendingHeaderStyle BackColor="#4870BE" />  
                     </asp:GridView> 
                     <br /><br />
-                    <asp:Label ID="test" runat="server" Text="test" ></asp:Label>
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>

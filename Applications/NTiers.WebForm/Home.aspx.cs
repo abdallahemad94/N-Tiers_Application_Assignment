@@ -29,9 +29,9 @@ namespace NTiers.WebForm
             }
         }
 
-        protected void dataGrid_Update(DataTable dataTable)
+        protected void dataGrid_Update()//DataTable dataTable)
         {
-            dataGrid.DataSource = dataTable;
+            dataGrid.DataSource = ViewState["dt"] as DataTable;//dataTable;
             dataGrid.DataBind();
         }
 
@@ -49,15 +49,16 @@ namespace NTiers.WebForm
             {
                 dataTable = viewData.GetUnFilterdData();
             }
-            test.Text = selectedTable;
-            dataGrid_Update(dataTable);
+            dataGrid.SelectedIndex = -1;
+            dataGrid.EditIndex = -1;
+            ViewState["dt"] = dataTable;
+            dataGrid_Update();//dataTable);
         }
 
         protected void ddlTables_SelectedIndexChanged(object sender, EventArgs e)
         {
             string SelectedTable = ddlTables.SelectedValue;
             dataGrid.SelectedIndex = -1;
-            lblID.Text = "";
             if (SelectedTable != "None") { GetData(SelectedTable); }
             else
             {
@@ -104,48 +105,11 @@ namespace NTiers.WebForm
 
         protected void btnDelete_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            if (Page.IsValid)
-            {
-                string SelectedTable = ddlTables.SelectedValue;
-                string id = dataGrid.Rows[e.RowIndex].Cells[1].Text;
-                DeleteAccess deleteData = new DeleteAccess(SelectedTable);
-                deleteData.DeleteItem(id);
-                GetData(SelectedTable);
-            }
-        }
-
-        protected void dataGrid_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)
-        {
-            string id = dataGrid.Rows[e.NewSelectedIndex].Cells[2].Text;
-            lblID.Text = id;
-        }
-
-        protected void btnUpdate_Click(object sender, EventArgs e)
-        {
-            if (Page.IsValid)
-            {
-                string SelectedTable = ddlTables.SelectedValue;
-                string id = lblID.Text;
-                string name = txtUpdateName.Text;
-                UpdateAccess updateData = new UpdateAccess(SelectedTable);
-                switch (SelectedTable)
-                {
-                    case "Courses":
-                        string courseDesc = txtUpdateCourseDesc.Text;
-                        string courseInst = txtUpdateCourseInst.Text;
-                        updateData.UpdateItem(id, name, courseDesc, courseInst);
-                        break;
-                    case "Enrollments":
-                        string stdID = txtUpdateCourseDesc.Text;
-                        updateData.UpdateItem(id, name, stdID);
-                        break;
-                    case "Students":
-                    case "Instructors":
-                        updateData.UpdateItem(id, name);
-                        break;
-                }
-                GetData(SelectedTable);
-            }
+            string SelectedTable = ddlTables.SelectedValue;
+            string id = dataGrid.Rows[e.RowIndex].Cells[2].Text;
+            DeleteAccess deleteData = new DeleteAccess(SelectedTable);
+            deleteData.DeleteItem(id);
+            GetData(SelectedTable);
         }
 
         protected void ValidateFilter(object source, ServerValidateEventArgs args)
@@ -206,6 +170,46 @@ namespace NTiers.WebForm
             else
             {
                 args.IsValid = true;
+            }
+        }
+
+        protected void dataGrid_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+            dataGrid.EditIndex = e.NewEditIndex;
+            this.dataGrid_Update();
+        }
+
+        protected void dataGrid_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+        {
+            dataGrid.EditIndex = -1;
+            this.dataGrid_Update();
+        }
+
+        protected void dataGrid_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        {
+            if (Page.IsValid)
+            {
+                string SelectedTable = ddlTables.SelectedValue;
+                string id = e.NewValues[0].ToString(); ;
+                string name = e.NewValues[1].ToString();
+                UpdateAccess updateData = new UpdateAccess(SelectedTable);
+                switch (SelectedTable)
+                {
+                    case "Courses":
+                        string courseDesc = e.NewValues[2].ToString();
+                        string courseInst = e.NewValues[3].ToString();
+                        updateData.UpdateItem(id, name, courseDesc, courseInst);
+                        break;
+                    case "Enrollments":
+                        string stdID = e.NewValues[2].ToString();
+                        updateData.UpdateItem(id, name, stdID);
+                        break;
+                    case "Students":
+                    case "Instructors":
+                        updateData.UpdateItem(id, name);
+                        break;
+                }
+                GetData(SelectedTable);
             }
         }
     }
