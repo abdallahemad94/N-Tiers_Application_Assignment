@@ -1,9 +1,9 @@
-﻿using System;
+﻿using NTiers.AppLogic;
+using System;
 using System.Collections.Generic;
-using System.Web.UI.WebControls;
 using System.Data;
-using NTiers.AppLogic;
 using System.Text.RegularExpressions;
+using System.Web.UI.WebControls;
 
 namespace NTiers.WebForm
 {

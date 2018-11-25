@@ -1,7 +1,7 @@
-﻿using System;
+﻿using NTiers.DataLayer;
+using System;
 using System.Collections.Generic;
 using System.Data;
-using NTiers.DataLayer;
 
 namespace NTiers.AppLogic
 {
