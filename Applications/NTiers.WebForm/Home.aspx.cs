@@ -29,9 +29,11 @@ namespace NTiers.WebForm
             }
         }
 
-        protected void dataGrid_Update()//DataTable dataTable)
+        protected void dataGrid_Update()
         {
-            dataGrid.DataSource = ViewState["dt"] as DataTable;//dataTable;
+            dataGrid.SelectedIndex = -1;
+            dataGrid.EditIndex = -1;
+            dataGrid.DataSource = ViewState["dt"] as DataTable;
             dataGrid.DataBind();
         }
 
@@ -49,17 +51,17 @@ namespace NTiers.WebForm
             {
                 dataTable = viewData.GetUnFilterdData();
             }
-            dataGrid.SelectedIndex = -1;
-            dataGrid.EditIndex = -1;
             ViewState["dt"] = dataTable;
-            dataGrid_Update();//dataTable);
+            dataGrid_Update();
         }
 
         protected void ddlTables_SelectedIndexChanged(object sender, EventArgs e)
         {
             string SelectedTable = ddlTables.SelectedValue;
-            dataGrid.SelectedIndex = -1;
-            if (SelectedTable != "None") { GetData(SelectedTable); }
+            if (SelectedTable != "None")
+            {
+                GetData(SelectedTable);
+            }
             else
             {
                 dataGrid.DataSource = null;
@@ -82,18 +84,16 @@ namespace NTiers.WebForm
             if (Page.IsValid)
             {
                 string SelectedTable = ddlTables.SelectedValue;
+                string InputId = txtInsertID.Text;
+                string InputName = txtInsertName.Text;
                 InsertAccess insertData = new InsertAccess(SelectedTable);
+
                 if (SelectedTable != "Courses")
                 {
-                    string InputId = txtInsertID.Text;
-                    string InputName = txtInsertName.Text;
-
                     insertData.InsertItem(InputId, InputName);
                 }
                 else
                 {
-                    string InputId = txtInsertID.Text;
-                    string InputName = txtInsertName.Text;
                     string courseDesc = txtInsertCourseDesc.Text;
                     string coursInst = txtInsertCourseInst.Text;
 
@@ -150,14 +150,11 @@ namespace NTiers.WebForm
         { 
             if (ddlTables.SelectedValue == "Enrollments")
             {
-                ValidateInsertName.Text = "Please enter a valid number!";
                 ValidateID(source, args);
             }
             else
             {
-                ValidateInsertName.Text = "Please enter a name!";
-                if (args.Value.Length > 0) { args.IsValid = true; }
-                else { args.IsValid = false; }
+                args.IsValid = args.Value.Length > 0 ? true : false;
             }
         }
 

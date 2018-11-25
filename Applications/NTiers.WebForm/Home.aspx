@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Home.aspx.cs" Inherits="NTiers.WebForm.Home" %>
+<%@ OutputCache Duration="3600" VaryByParam="None" %>
 
 <!DOCTYPE html>
 
