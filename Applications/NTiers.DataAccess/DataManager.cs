@@ -81,12 +81,15 @@ namespace NTiers.DataLayer
         }
 
         public virtual DataTable GetAll() { return new DataTable(); }
-        public virtual DataTable GetByStudentID(int stdID) { throw new NotImplementedException(); }
-        public virtual DataTable GetByCourseID(int CourseID) { throw new NotImplementedException(); }
-        public virtual DataTable GetByInstructorID(int InstID) { throw new NotImplementedException(); }
+        public virtual DataTable GetByStudent(int stdID) { throw new NotImplementedException(); }
+        public virtual DataTable GetByCourse(int CourseID) { throw new NotImplementedException(); }
+        public virtual DataTable GetByInstructor(int InstID) { throw new NotImplementedException(); }
         public virtual void AddItem(int id, string name) { throw new NotImplementedException(); }
         public virtual void AddItem(int id1, int id2) { throw new NotImplementedException(); }
         public virtual void AddItem(int id1, string name, string desc, int id2) { throw new NotImplementedException(); }
+        public virtual void UpdateItem(int id, string name) { throw new NotImplementedException(); }
+        public virtual void UpdateItem(int id1, int id2, int id3) { throw new NotImplementedException(); }
+        public virtual void UpdateItem(int id1, string name, string desc, int id2) { throw new NotImplementedException(); }
         public virtual void RemoveItem(int id) { throw new NotImplementedException(); }
     }
 }

@@ -15,9 +15,9 @@ namespace NTiers.WebForm
             ScriptManager.ScriptResourceMapping.AddDefinition("jquery",
                 new ScriptResourceDefinition
                 {
-                    Path = "~/scripts/jquery-3.3.1.min.js",
-                    DebugPath = "~/scripts/jquery-3.3.1.min.js",
-                    CdnPath = "http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js",
+                    Path = "~/scripts/jquery-3.3.1.js",
+                    DebugPath = "~/scripts/jquery-3.3.1.js",
+                    CdnPath = "http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.js",
                     CdnDebugPath = "http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.js"
                 });
         }

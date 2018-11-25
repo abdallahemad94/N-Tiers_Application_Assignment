@@ -6,6 +6,7 @@
             if (SelectedTable) {
                 $("#ddlTables").val(SelectedTable);
                 ddlTables_Change();
+                setTimeout("__doPostBack('ddlTables', '\')", 0);
                 if (SelectedFilter) {
                     $("#ddlFilter").val(SelectedFilter);
                     ddlFilter_Change();
@@ -15,7 +16,7 @@
         else {
             HideViewControls();
             HideInsertControls();
-            HideDeleteControls();
+            HideUpdateControls();
         }
     }
 );
@@ -23,17 +24,19 @@
 function ddlTables_Change() {
     CleartextBoxes();
     ClearValidationControls();
+    $("#lblID").text("");
     $("#ddlFilter").val("None");
     var SelectedTable = $("#ddlTables").val();
     if (SelectedTable === "None") {
         HideViewControls();
         HideInsertControls();
-        HideDeleteControls();
+        HideUpdateControls();
     }
     else {
         ShowViewControls();
         ShowInsertControls(SelectedTable);
-        ShowDeleteControls(SelectedTable);
+        ShowUpdateControls(SelectedTable);
+        HideFilterOptions();
         $(".FieldInfo").css("visibility", "visible");
     }
     SetCookie("Table", SelectedTable);
@@ -63,8 +66,8 @@ function HideInsertControls() {
     $(".InsertControls").css("visibility", "hidden");
 }
 
-function HideDeleteControls() {
-    $(".DeleteControls").css("visibility", "hidden");
+function HideUpdateControls() {
+    $(".UpdateControls").css("visibility", "hidden");
 }
 
 function ShowViewControls() {
@@ -96,11 +99,7 @@ function InsertOptions(text) {
         $("#lblInsertID").text("Course ID: ");
         $("#lblInsertName").text("Studentd ID: ");
     }
-    $("#lblInsertID").css("visibility", "visible");
-    $("#lblInsertName").css("visibility", "visible");
-    $("#txtInsertID").css("visibility", "visible");
-    $("#txtInsertName").css("visibility", "visible");
-    $("#btnInsert").css("visibility", "visible")
+    $(".InsertControls").css("visibility", "visible");
     HideCourseInsertOptions();
 }
 
@@ -111,10 +110,7 @@ function CoursesInsertOptions() {
 }
 
 function HideCourseInsertOptions() {
-    $("#lblCourseDesc").css("visibility", "hidden");
-    $("#txtCourseDesc").css("visibility", "hidden");
-    $("#lblCourseInst").css("visibility", "hidden");
-    $("#txtCourseInst").css("visibility", "hidden");
+    $(".CourseInsert").css("visibility", "hidden");
 }
 
 function HideFilterOptions() {
@@ -126,10 +122,47 @@ function ShowFilterOptions(selectedFilter) {
     $(".FilterOptions").css("visibility", "visible");
 }
 
-function ShowDeleteControls(selectedTable) {
-    $("#lblDeleteID").text(selectedTable + " ID: ");
-    $(".DeleteControls").css("visibility", "visible");
+function ShowUpdateControls(selectedTable) {
+    switch (selectedTable) {
+        case "Students":
+            UpdateOptions("Student");
+            break;
+        case "Courses":
+            CoursesUpdateOptions();
+            break;
+        case "Instructors":
+            UpdateOptions("Instructor");
+            break;
+        case "Enrollments":
+            UpdateOptions("Enrollment");
+            break;
+    }
 }
+
+function UpdateOptions(text) {
+    $("#lblUpdateID").text("Selected " + text + " ID: ");
+    $("#lblUpdateName").text(text + " Name: ");
+    $(".UpdateControls").css("visibility", "visible");
+    HideCourseUpdateOptions();
+    if (text == "Enrollment") {
+        $("#lblUpdateName").text("Course ID: ");
+        $("#lblUpdateCourseDesc").text("Studentd ID: ");
+        $("#lblUpdateCourseDesc").css("visibility", "visible");
+        $("#txtUpdateCourseDesc").css("visibility", "visible");
+    }
+}
+
+function CoursesUpdateOptions() {
+    $("#lblUpdateID").text("Selected Course ID: ");
+    $("#lblUpdateName").text("Course Name: ");
+    $("#lblUpdateCourseDesc").text("Course Description: ")
+    $(".UpdateControls").css("visibility", "visible");
+}
+
+function HideCourseUpdateOptions() {
+    $(".CourseUpdate").css("visibility", "hidden");
+}
+
 
 function ValidateFilterID(src, args) {
     var SelectedFilter = $("#ddlFilter").val();

@@ -58,13 +58,13 @@ namespace NTiers.WebForm {
         protected global::System.Web.UI.WebControls.CustomValidator ValidateFilterID;
         
         /// <summary>
-        /// btnView control.
+        /// btnFilter control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnView;
+        protected global::System.Web.UI.WebControls.Button btnFilter;
         
         /// <summary>
         /// txtInsertID control.
@@ -103,22 +103,22 @@ namespace NTiers.WebForm {
         protected global::System.Web.UI.WebControls.CustomValidator ValidateInsertName;
         
         /// <summary>
-        /// txtCourseDesc control.
+        /// txtInsertCourseDesc control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCourseDesc;
+        protected global::System.Web.UI.WebControls.TextBox txtInsertCourseDesc;
         
         /// <summary>
-        /// txtCourseInst control.
+        /// txtInsertCourseInst control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCourseInst;
+        protected global::System.Web.UI.WebControls.TextBox txtInsertCourseInst;
         
         /// <summary>
         /// ValidateCourseInst control.
@@ -139,31 +139,58 @@ namespace NTiers.WebForm {
         protected global::System.Web.UI.WebControls.Button btnInsert;
         
         /// <summary>
-        /// txtDeleteID control.
+        /// pnlUpdate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDeleteID;
+        protected global::System.Web.UI.UpdatePanel pnlUpdate;
         
         /// <summary>
-        /// ValidateDeleteID control.
+        /// lblID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CustomValidator ValidateDeleteID;
+        protected global::System.Web.UI.WebControls.Label lblID;
         
         /// <summary>
-        /// btnDelete control.
+        /// txtUpdateName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnDelete;
+        protected global::System.Web.UI.WebControls.TextBox txtUpdateName;
+        
+        /// <summary>
+        /// txtUpdateCourseDesc control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtUpdateCourseDesc;
+        
+        /// <summary>
+        /// txtUpdateCourseInst control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtUpdateCourseInst;
+        
+        /// <summary>
+        /// btnUpdate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnUpdate;
         
         /// <summary>
         /// UpdatePanel control.
@@ -181,6 +208,15 @@ namespace NTiers.WebForm {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DataGrid dataGrid;
+        protected global::System.Web.UI.WebControls.GridView dataGrid;
+        
+        /// <summary>
+        /// test control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label test;
     }
 }

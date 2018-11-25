@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Data;
-using System.Data.SqlClient;
 
 namespace NTiers.DataLayer
 {
@@ -13,7 +11,7 @@ namespace NTiers.DataLayer
             return GetData();
         }
 
-        public override DataTable GetByStudentID(int stdID)
+        public override DataTable GetByStudent(int stdID)
         {
             string[] ParamsName = { "@stdID" };
             ArrayList ParamsValue = new ArrayList() { stdID };
@@ -24,7 +22,7 @@ namespace NTiers.DataLayer
             return GetData();
         }
 
-        public override DataTable GetByCourseID(int CourseID)
+        public override DataTable GetByCourse(int CourseID)
         {
             string[] ParamsName = { "@CourseID" };
             ArrayList ParamsValue = new ArrayList() { CourseID };
@@ -35,10 +33,10 @@ namespace NTiers.DataLayer
             return GetData();
         }
 
-        public override DataTable GetByInstructorID(int InstID)
+        public override DataTable GetByInstructor(int CourseInst)
         {
-            string[] ParamsName = { "@InstID" };
-            ArrayList ParamsValue = new ArrayList() { InstID };
+            string[] ParamsName = { "@CourseInst" };
+            ArrayList ParamsValue = new ArrayList() { CourseInst };
 
             SetCommand("Enrollments_GetByInstructor");
             AddParameters(1, ParamsName, ParamsValue);
@@ -51,17 +49,27 @@ namespace NTiers.DataLayer
             string[] ParamsName = { "@CourseID", "@stdID" };
             ArrayList ParamsValue = new ArrayList() { CourseID, stdID };
 
-            SetCommand("Enrollments_addEnrollment");
+            SetCommand("Enrollments_AddEnrollment");
             AddParameters(2, ParamsName, ParamsValue);
             ExecuteNonQuery();
         }
 
-        public override void RemoveItem(int stdID)
+        public override void UpdateItem(int EnrollID, int CourseID, int stdID)
         {
-            string[] ParamsName = { "@stdID" };
-            ArrayList ParamsValue = new ArrayList() { stdID };
+            string[] ParamsName = { "@EnrollID", "@CourseID", "@stdID" };
+            ArrayList ParamsValue = new ArrayList() { EnrollID, CourseID, stdID };
 
-            SetCommand("Enrollments_removeByStudentID");
+            SetCommand("Enrollments_UpdateEnrollment");
+            AddParameters(3, ParamsName, ParamsValue);
+            ExecuteNonQuery();
+        }
+
+        public override void RemoveItem(int EnrollID)
+        {
+            string[] ParamsName = { "@EnrollID" };
+            ArrayList ParamsValue = new ArrayList() { EnrollID };
+
+            SetCommand("Enrollments_RemoveEnrollment");
             AddParameters(1, ParamsName, ParamsValue);
             ExecuteNonQuery();
         }

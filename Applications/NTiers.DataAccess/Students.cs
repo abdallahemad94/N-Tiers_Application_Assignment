@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Data;
-using System.Data.SqlClient;
 
 namespace NTiers.DataLayer
 {
@@ -9,38 +7,38 @@ namespace NTiers.DataLayer
     {
         public override DataTable GetAll()
         {
-            SetCommand("Students_getAll");
+            SetCommand("Students_GetAll");
             return GetData();
         }
 
-        public override DataTable GetByStudentID(int stdID)
+        public override DataTable GetByStudent(int stdID)
         {
             string[] ParamsName = { "@stdID" };
             ArrayList ParamsValue = new ArrayList() { stdID };
 
-            SetCommand("Students_getByID");
+            SetCommand("Students_GetByStudent");
             AddParameters(1, ParamsName, ParamsValue);
 
             return GetData();
         }
 
-        public override DataTable GetByCourseID(int CourseID)
+        public override DataTable GetByCourse(int CourseID)
         {
             string[] ParamsName = { "@CourseID" };
             ArrayList ParamsValue = new ArrayList() { CourseID };
 
-            SetCommand("Students_getByCourse");
+            SetCommand("Students_GetByCourse");
             AddParameters(1, ParamsName, ParamsValue);
 
             return GetData();
         }
 
-        public override DataTable GetByInstructorID(int InstID)
+        public override DataTable GetByInstructor(int CourseInst)
         {
-            string[] ParamsName = { "@InstID" };
-            ArrayList ParamsValue = new ArrayList() { InstID };
+            string[] ParamsName = { "@CourseInst" };
+            ArrayList ParamsValue = new ArrayList() { CourseInst };
 
-            SetCommand("Students_getByInstructor");
+            SetCommand("Students_GetByInstructor");
             AddParameters(1, ParamsName, ParamsValue);
 
             return GetData();
@@ -51,7 +49,17 @@ namespace NTiers.DataLayer
             string[] ParamsName = { "@stdID", "@stdName" };
             ArrayList ParamsValue = new ArrayList() { stdID, stdName };
 
-            SetCommand("Students_addStudent");
+            SetCommand("Students_AddStudent");
+            AddParameters(2, ParamsName, ParamsValue);
+            ExecuteNonQuery();
+        }
+
+        public override void UpdateItem(int stdID, string stdName)
+        {
+            string[] ParamsName = { "@stdID", "@stdName" };
+            ArrayList ParamsValue = new ArrayList() { stdID, stdName };
+
+            SetCommand("Students_UpdateStudent");
             AddParameters(2, ParamsName, ParamsValue);
             ExecuteNonQuery();
         }
@@ -61,7 +69,7 @@ namespace NTiers.DataLayer
             string[] ParamsName = { "@stdID" };
             ArrayList ParamsValue = new ArrayList() { stdID };
 
-            SetCommand("Students_removeByID");
+            SetCommand("Students_RemoveStudent");
             AddParameters(1, ParamsName, ParamsValue);
             ExecuteNonQuery();
         }

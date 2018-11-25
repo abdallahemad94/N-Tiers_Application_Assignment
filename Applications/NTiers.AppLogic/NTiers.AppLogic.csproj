@@ -41,10 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataAccess.cs" />
-    <Compile Include="DeleteData.cs" />
-    <Compile Include="InsertData.cs" />
-    <Compile Include="ViewData.cs" />
+    <Compile Include="MainAccess.cs" />
+    <Compile Include="DeleteAccess.cs" />
+    <Compile Include="InsertAccess.cs" />
+    <Compile Include="UpdateAccess.cs" />
+    <Compile Include="ViewAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

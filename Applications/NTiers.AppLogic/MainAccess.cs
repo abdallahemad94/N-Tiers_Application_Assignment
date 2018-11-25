@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NTiers.DataLayer;
+﻿using NTiers.DataLayer;
 
 namespace NTiers.AppLogic
 {
-    public class DataAccess
+    public class MainAccess
     {
         protected DataManager dataManager;
 
         public string Table { get; }
-        public DataAccess(string table)
+        public MainAccess(string table)
         {
             Table = table;
             switch (Table)

@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Data;
-using System.Data.SqlClient;
 
 namespace NTiers.DataLayer
 {
@@ -9,49 +7,60 @@ namespace NTiers.DataLayer
     {
         public override DataTable GetAll()
         {
-            SetCommand("Courses_getAll");
+            SetCommand("Courses_GetAll");
+
             return GetData();
         }
 
-        public override DataTable GetByStudentID(int stdID)
+        public override DataTable GetByStudent(int stdID)
         {
             string[] ParamsName = { "@stdID" };
             ArrayList ParamsValue = new ArrayList() { stdID };
 
-            SetCommand("Courses_getByStudent");
+            SetCommand("Courses_GetByStudent");
             AddParameters(1, ParamsName, ParamsValue);
 
             return GetData();
         }
 
-        public override DataTable GetByCourseID(int CourseID)
+        public override DataTable GetByCourse(int CourseID)
         {
             string[] ParamsName = { "@CourseID" };
             ArrayList ParamsValue = new ArrayList() { CourseID };
 
-            SetCommand("Courses_getByID");
+            SetCommand("Courses_GetByCourse");
             AddParameters(1, ParamsName, ParamsValue);
 
             return GetData();
         }
 
-        public override DataTable GetByInstructorID(int InstID)
+        public override DataTable GetByInstructor(int CourseInst)
         {
-            string[] ParamsName = { "@InstID" };
-            ArrayList ParamsValue = new ArrayList() { InstID };
+            string[] ParamsName = { "@CourseInst" };
+            ArrayList ParamsValue = new ArrayList() { CourseInst };
 
-            SetCommand("Courses_getByIntructor");
+            SetCommand("Courses_GetByIntructor");
             AddParameters(1, ParamsName, ParamsValue);
 
             return GetData();
         }
 
-        public override void AddItem(int CourseID, string CourseName, string CourseDesc, int InstID)
+        public override void AddItem(int CourseID, string CourseName, string CourseDesc, int CourseInst)
         {
-            string[] ParamsName = { "@CourseID", "@CourseName", "@CourseDesc", "@InstID" };
-            ArrayList ParamsValue = new ArrayList() { CourseID, CourseName, CourseDesc, InstID };
+            string[] ParamsName = { "@CourseID", "@CourseName", "@CourseDesc", "@CourseInst" };
+            ArrayList ParamsValue = new ArrayList() { CourseID, CourseName, CourseDesc, CourseInst };
 
-            SetCommand("Courses_addCourse");
+            SetCommand("Courses_AddCourse");
+            AddParameters(4, ParamsName, ParamsValue);
+            ExecuteNonQuery();
+        }
+
+        public override void UpdateItem(int CourseID, string CourseName, string CourseDesc, int CourseInst)
+        {
+            string[] ParamsName = { "@CourseID", "@CourseName", "@CourseDesc", "@CourseInst" };
+            ArrayList ParamsValue = new ArrayList() { CourseID, CourseName, CourseDesc, CourseInst };
+
+            SetCommand("Courses_UpdateCourse");
             AddParameters(4, ParamsName, ParamsValue);
             ExecuteNonQuery();
         }
@@ -61,17 +70,7 @@ namespace NTiers.DataLayer
             string[] ParamsName = { "@CourseID" };
             ArrayList ParamsValue = new ArrayList() { CourseID };
 
-            SetCommand("Courses_removeByCourseID");
-            AddParameters(1, ParamsName, ParamsValue);
-            ExecuteNonQuery();
-        }
-
-        public void RemoveItemByInstructorID(int InstID)
-        {
-            string[] ParamsName = { "@InstID" };
-            ArrayList ParamsValue = new ArrayList() { InstID };
-
-            SetCommand("Courses_removeByInstructorID");
+            SetCommand("Courses_RemoveCourse");
             AddParameters(1, ParamsName, ParamsValue);
             ExecuteNonQuery();
         }

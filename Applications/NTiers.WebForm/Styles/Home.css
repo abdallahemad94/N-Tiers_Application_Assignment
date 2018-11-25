@@ -17,6 +17,10 @@ input[type="text"] {
     width: 120px;
 }
 
-#txtCourseDesc {
-    width: 250px;
+.UpdateControls input[type="text"] {
+    width: 15em;
+}
+
+#txtInsertCourseDesc {
+    width: 15em;
 }

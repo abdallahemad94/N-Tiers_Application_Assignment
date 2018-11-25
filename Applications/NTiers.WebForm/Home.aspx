@@ -7,6 +7,7 @@
     <meta charset="utf-8" />
     <title>NTiers Application</title>
     <link href="Styles/Home.css" rel="stylesheet" type="text/css" />
+    <script src="Scripts/jquery-3.3.1.js" type="text/javascript"></script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -19,7 +20,8 @@
         
         <div id="ControlsWrapper">
             <label id="lblTables">Table: </label>
-            <asp:DropDownList ID="ddlTables" ClientIDMode="Static" runat="server">
+            <asp:DropDownList ID="ddlTables" ClientIDMode="Static" runat="server" AutoPostBack="True" 
+                OnSelectedIndexChanged="ddlTables_SelectedIndexChanged">
                 <asp:ListItem Value="None" Text="None" Selected="True" />
             </asp:DropDownList>
             <br />
@@ -40,10 +42,10 @@
                     <asp:CustomValidator ID="ValidateFilterID" CssClass="ValidationControls" ClientIDMode="Static" runat="server"
                         ControlToValidate="txtFilterID" ClientValidationFunction="ValidateFilterID"
                         ErrorMessage="Please enter a valid number!" ForeColor="Red" ValidateEmptyText="True" 
-                        ValidationGroup="FilterData" />
+                        ValidationGroup="FilterData" OnServerValidate="ValidateFilter" />
                     <br /><br />
-                    <asp:Button ID="btnView" CssClass="ViewControls" ClientIDMode="Static" runat="server" 
-                        Text="View Data" OnClick="btnView_Click" ValidationGroup="FilterData" />
+                    <asp:Button ID="btnFilter" CssClass="ViewControls" ClientIDMode="Static" runat="server" 
+                        Text="Filter Data" OnClick="btnFilter_Click" ValidationGroup="FilterData" CausesValidation="true" />
                 </fieldset>
             </div>
 
@@ -55,42 +57,51 @@
                     <asp:CustomValidator ID="ValidateInsertID" CssClass="ValidationControls" ClientIDMode="Static" runat="server"
                         ControlToValidate="txtInsertID" ClientValidationFunction="ValidateID"
                         ErrorMessage="Please enter a valid number!" ForeColor="Red" ValidateEmptyText="true"
-                        ValidationGroup="InsertData" />
+                        ValidationGroup="InsertData" OnServerValidate="ValidateID"/>
                     <br /><br />
                     <label id="lblInsertName" class="InsertControls">Insert Name</label>
                     <asp:TextBox ID="txtInsertName" CssClass="InsertControls" ClientIDMode="Static" runat="server" />
                     <asp:CustomValidator ID="ValidateInsertName" CssClass="ValidationControls" ClientIDMode="Static"
                         runat="server" ControlToValidate="txtInsertName" ClientValidationFunction="ValidateName"
                         ErrorMessage="Please enter a name!" ForeColor="Red" ValidateEmptyText="true"
-                        ValidationGroup="InsertData" />
+                        ValidationGroup="InsertData" OnServerValidate="ValidateName"/>
                     <br /><br />
-                    <label id="lblCourseDesc" class="InsertControls">Course Description: </label>
-                    <asp:TextBox ID="txtCourseDesc" CssClass="InsertControls" ClientIDMode="Static" runat="server" />
+                    <label id="lblInsertCourseDesc" class="InsertControls CourseInsert">Course Description: </label>
+                    <asp:TextBox ID="txtInsertCourseDesc" CssClass="InsertControls CourseInsert" ClientIDMode="Static" runat="server" />
                     <br /><br />
-                    <label id="lblCourseInst" class="InsertControls">Coures Instructor: </label>
-                    <asp:TextBox ID="txtCourseInst" CssClass="InsertControls" ClientIDMode="Static" runat="server" />
+                    <label id="lblInsertCourseInst" class="InsertControls CourseInsert">Coures Instructor: </label>
+                    <asp:TextBox ID="txtInsertCourseInst" CssClass="InsertControls CourseInsert" ClientIDMode="Static" runat="server" />
                     <asp:CustomValidator ID="ValidateCourseInst" CssClass="ValidationControls" ClientIDMode="Static"
-                        runat="server" ControlToValidate="txtCourseInst" ClientValidationFunction="ValidateCourseInst"
+                        runat="server" ControlToValidate="txtInsertCourseInst" ClientValidationFunction="ValidateCourseInst"
                         ErrorMessage="Please enter a valid number!" ForeColor="Red" ValidationGroup="InsertData"
-                        ValidateEmptyText="true"/>
+                        ValidateEmptyText="true" OnServerValidate="ValidateCourseInstID" />
                     <br /><br />
                     <asp:Button ID="btnInsert" CssClass="InsertControls" ClientIDMode="Static" runat="server" 
                         Text="Insert Data" OnClick="btnInsert_Click" ValidationGroup="InsertData"/>
                 </fieldset>
             </div>
 
-            <div id="DeleteWrapper">
-                <fieldset class="DeleteControls FieldInfo">
-                    <legend class="DeleteControls FieldInfo">Delete</legend>
-                    <label id="lblDeleteID" class="DeleteControls">Delete ID</label>
-                    <asp:TextBox ID="txtDeleteID" CssClass="DeleteControls" ClientIDMode ="static" runat="server" />
-                    <asp:CustomValidator ID="ValidateDeleteID" CssClass="ValidationControls" ClientIDMode="Static"
-                        runat="server" ControlToValidate="txtDeleteID" ClientValidationFunction="ValidateID"
-                        ErrorMessage="Please enter a valid number!" ForeColor="Red" ValidationGroup="DeleteData"
-                        ValidateEmptyText="true" />
+            <div class="UpdateWrapper">
+                <fieldset class="UpdateControls">
+                    <legend class="UpdateControls">Update</legend>
+                    <label id="lblUpdateID" class="UpdateControls">id</label>
+                    <asp:UpdatePanel runat="server" ID="pnlUpdate" ClientIDMode="Static" RenderMode="Inline">
+                        <ContentTemplate>
+                            <asp:Label runat="server" ID="lblID" CssClass="UpdateControls" Text="" ClientIDMode="Static"></asp:Label>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
                     <br /><br />
-                    <asp:Button ID="btnDelete" CssClass="DeleteControls" ClientIDMode="Static" runat="server"
-                        Text="Delete Item" OnClick="btnDelete_Click"  ValidationGroup="DeleteData"/>
+                    <label id="lblUpdateName" class="UpdateControls">name</label>
+                    <asp:TextBox ID="txtUpdateName" CssClass="UpdateControls" ClientIDMode="Static" runat="server"></asp:TextBox>
+                    <br /><br />
+                    <label id="lblUpdateCourseDesc" class="UpdateControls CourseUpdate">Course Description: </label>
+                    <asp:TextBox ID="txtUpdateCourseDesc" CssClass="UpdateControls CourseUpdate" ClientIDMode="Static" runat="server"></asp:TextBox>
+                    <br /><br />
+                    <label id="lblUpdateCourseInst" class="UpdateControls CourseUpdate">Course Instructor: </label>
+                    <asp:TextBox ID="txtUpdateCourseInst" CssClass="UpdateControls CourseUpdate" ClientIDMode="Static" runat="server"></asp:TextBox>
+                    <br /><br />
+                    <asp:Button ID="btnUpdate" CssClass="UpdateControls" ClientIDMode="Static" runat="server" Text="Update Item" 
+                        OnClick="btnUpdate_Click"/>
                 </fieldset>
             </div>
         </div>
@@ -98,20 +109,37 @@
         <div id="DataWrapper">
             <asp:UpdatePanel ID="UpdatePanel" runat="server">
                 <Triggers>
-                    <asp:AsyncPostBackTrigger ControlID="btnView" EventName="Click" />
+                    <asp:AsyncPostBackTrigger ControlID="btnFilter" EventName="Click" />
                     <asp:AsyncPostBackTrigger ControlID="btnInsert" EventName="Click" />
-                    <asp:AsyncPostBackTrigger ControlID="btnDelete" EventName="Click" />
+                    <asp:AsyncPostBackTrigger ControlID="btnUpdate" EventName="Click" />
+                    <asp:AsyncPostBackTrigger ControlID="ddlTables" EventName="SelectedIndexChanged"/>
                 </Triggers>
+
                 <ContentTemplate>
-                    <asp:DataGrid ID="dataGrid" ClientIDMode="Static" runat="server" HorizontalAlign="Center">
-                        <AlternatingItemStyle BackColor="#66CCFF" />
-                        <HeaderStyle BackColor="#6699FF" HorizontalAlign="Center" VerticalAlign="Middle" />
-                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
-                    </asp:DataGrid>
+                    <asp:GridView ID="dataGrid" runat="server" CellPadding="3" ForeColor="#333333" GridLines="None" HorizontalAlign="Center" 
+                        CellSpacing="1" OnRowDeleting="btnDelete_RowDeleting" OnSelectedIndexChanging="dataGrid_SelectedIndexChanging">  
+                        <AlternatingRowStyle BackColor="White" />  
+                        <Columns>
+                            <asp:ButtonField ButtonType="Button" CommandName="Select" Text="Select" />
+                            <asp:ButtonField ButtonType="Button" CommandName="Delete" Text="Delete" />
+                        </Columns>
+
+                        <EditRowStyle BackColor="#2461BF" />  
+                        <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />  
+                        <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />  
+                        <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />  
+                        <RowStyle BackColor="#EFF3FB" HorizontalAlign="Center" />  
+                        <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />  
+                        <SortedAscendingCellStyle BackColor="#F5F7FB" />  
+                        <SortedAscendingHeaderStyle BackColor="#6D95E1" />  
+                        <SortedDescendingCellStyle BackColor="#E9EBEF" />  
+                        <SortedDescendingHeaderStyle BackColor="#4870BE" />  
+                    </asp:GridView> 
+                    <br /><br />
+                    <asp:Label ID="test" runat="server" Text="test" ></asp:Label>
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>
-
     </form>
 </body>
 </html>

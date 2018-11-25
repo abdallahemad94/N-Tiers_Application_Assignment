@@ -1,21 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NTiers.DataLayer;
 using System.Data;
+using NTiers.DataLayer;
 
 namespace NTiers.AppLogic
 {
-    public class ViewData : DataAccess
+    public class ViewAccess : MainAccess
     {
-        public ViewData(string table) : base(table) { }
-
-        public DataTable GetUnFilterdData()
-        {
-            return dataManager.GetAll();
-        }
+        public ViewAccess(string table) : base(table) { }
 
         public static List<string> GetTables()
         {
@@ -28,22 +20,28 @@ namespace NTiers.AppLogic
             return Tables;
         }
 
+        public DataTable GetUnFilterdData()
+        {
+            return dataManager.GetAll();
+        }
+
         public DataTable GetFilterdData(string FilterBy, string FilterID)
         {
-            DataTable dataTable;
+            DataTable dataTable = new DataTable();
+
             try
             {
                 int ID = int.Parse(FilterID);
                 switch (FilterBy)
                 {
                     case "Student":
-                        dataTable = dataManager.GetByStudentID(ID);
+                        dataTable = dataManager.GetByStudent(ID);
                         return dataTable;
                     case "Course":
-                        dataTable = dataManager.GetByCourseID(ID);
+                        dataTable = dataManager.GetByCourse(ID);
                         return dataTable;
                     case "Instructor":
-                        dataTable = dataManager.GetByInstructorID(ID);
+                        dataTable = dataManager.GetByInstructor(ID);
                         return dataTable;
                 }
             }
@@ -51,7 +49,8 @@ namespace NTiers.AppLogic
             {
                 throw e;
             }
-            return GetUnFilterdData();
+
+            return dataTable;
         }
     }
 }
