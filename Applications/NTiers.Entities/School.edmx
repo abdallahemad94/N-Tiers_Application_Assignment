@@ -1,0 +1,459 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SchoolModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Courses">
+          <Key>
+            <PropertyRef Name="CourseID" />
+          </Key>
+          <Property Name="CourseID" Type="int" Nullable="false" />
+          <Property Name="CourseName" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="CourseDesc" Type="nvarchar" MaxLength="150" />
+          <Property Name="CourseInst" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Enrollments">
+          <Key>
+            <PropertyRef Name="EnrollID" />
+          </Key>
+          <Property Name="EnrollID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CourseID" Type="int" Nullable="false" />
+          <Property Name="stdID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Instructors">
+          <Key>
+            <PropertyRef Name="InstID" />
+          </Key>
+          <Property Name="InstID" Type="int" Nullable="false" />
+          <Property Name="InstName" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Students">
+          <Key>
+            <PropertyRef Name="stdID" />
+          </Key>
+          <Property Name="stdID" Type="int" Nullable="false" />
+          <Property Name="stdName" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Courses__CourseI__3B75D760">
+          <End Role="Instructors" Type="Self.Instructors" Multiplicity="1" />
+          <End Role="Courses" Type="Self.Courses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instructors">
+              <PropertyRef Name="InstID" />
+            </Principal>
+            <Dependent Role="Courses">
+              <PropertyRef Name="CourseInst" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Enrollmen__Cours__3E52440B">
+          <End Role="Courses" Type="Self.Courses" Multiplicity="1" />
+          <End Role="Enrollments" Type="Self.Enrollments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="Enrollments">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Enrollmen__stdID__3F466844">
+          <End Role="Students" Type="Self.Students" Multiplicity="1" />
+          <End Role="Enrollments" Type="Self.Enrollments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="stdID" />
+            </Principal>
+            <Dependent Role="Enrollments">
+              <PropertyRef Name="stdID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="Courses_AddCourse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CourseID" Type="int" Mode="In" />
+          <Parameter Name="CourseName" Type="nvarchar" Mode="In" />
+          <Parameter Name="CourseDesc" Type="nvarchar" Mode="In" />
+          <Parameter Name="CourseInst" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Courses_GetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Courses_GetByCourse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CourseID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Courses_GetByIntructor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CourseInst" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Courses_GetByStudent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="stdID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Courses_RemoveCourse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CourseID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Courses_UpdateCourse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CourseID" Type="int" Mode="In" />
+          <Parameter Name="CourseName" Type="nvarchar" Mode="In" />
+          <Parameter Name="CourseDesc" Type="nvarchar" Mode="In" />
+          <Parameter Name="CourseInst" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Enrollments_AddEnrollment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CourseID" Type="int" Mode="In" />
+          <Parameter Name="stdID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Enrollments_GetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Enrollments_GetByCourse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CourseID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Enrollments_GetByInstructor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CourseInst" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Enrollments_GetByStudent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="stdID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Enrollments_RemoveEnrollment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EnrollID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Enrollments_UpdateEnrollment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EnrollID" Type="int" Mode="In" />
+          <Parameter Name="CourseID" Type="int" Mode="In" />
+          <Parameter Name="stdID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Instrucors_AddInstructor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="InstID" Type="int" Mode="In" />
+          <Parameter Name="InstName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="Instructors_GetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Instructors_GetByCourse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CourseID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Instructors_GetByInstructor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="InstID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Instructors_GetByStudent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="stdID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Instructors_RemoveInstructor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="InstID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Instructors_UpdateInstructor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="InstID" Type="int" Mode="In" />
+          <Parameter Name="InstName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="Students_AddStudent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="stdID" Type="int" Mode="In" />
+          <Parameter Name="stdName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="Students_GetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Students_GetByCourse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CourseID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Students_GetByInstructor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CourseInst" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Students_GetByStudent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="stdID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Students_RemoveStudent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="stdID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Students_UpdateStudent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="stdID" Type="int" Mode="In" />
+          <Parameter Name="stdName" Type="nvarchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="SchoolModelStoreContainer">
+          <EntitySet Name="Courses" EntityType="Self.Courses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Enrollments" EntityType="Self.Enrollments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Instructors" EntityType="Self.Instructors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Students" EntityType="Self.Students" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Courses__CourseI__3B75D760" Association="Self.FK__Courses__CourseI__3B75D760">
+            <End Role="Instructors" EntitySet="Instructors" />
+            <End Role="Courses" EntitySet="Courses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Enrollmen__Cours__3E52440B" Association="Self.FK__Enrollmen__Cours__3E52440B">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="Enrollments" EntitySet="Enrollments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Enrollmen__stdID__3F466844" Association="Self.FK__Enrollmen__stdID__3F466844">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="Enrollments" EntitySet="Enrollments" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SchoolModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="CourseID" />
+          </Key>
+          <Property Name="CourseID" Type="Int32" Nullable="false" />
+          <Property Name="CourseName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CourseDesc" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="CourseInst" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Instructors" Relationship="Self.FK__Courses__CourseI__3B75D760" FromRole="Courses" ToRole="Instructors" />
+          <NavigationProperty Name="Enrollments" Relationship="Self.FK__Enrollmen__Cours__3E52440B" FromRole="Courses" ToRole="Enrollments" />
+        </EntityType>
+        <EntityType Name="Enrollment">
+          <Key>
+            <PropertyRef Name="EnrollID" />
+          </Key>
+          <Property Name="EnrollID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseID" Type="Int32" Nullable="false" />
+          <Property Name="stdID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Courses" Relationship="Self.FK__Enrollmen__Cours__3E52440B" FromRole="Enrollments" ToRole="Courses" />
+          <NavigationProperty Name="Students" Relationship="Self.FK__Enrollmen__stdID__3F466844" FromRole="Enrollments" ToRole="Students" />
+        </EntityType>
+        <EntityType Name="Instructor">
+          <Key>
+            <PropertyRef Name="InstID" />
+          </Key>
+          <Property Name="InstID" Type="Int32" Nullable="false" />
+          <Property Name="InstName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Courses" Relationship="Self.FK__Courses__CourseI__3B75D760" FromRole="Instructors" ToRole="Courses" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="stdID" />
+          </Key>
+          <Property Name="stdID" Type="Int32" Nullable="false" />
+          <Property Name="stdName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Enrollments" Relationship="Self.FK__Enrollmen__stdID__3F466844" FromRole="Students" ToRole="Enrollments" />
+        </EntityType>
+        <Association Name="FK__Courses__CourseI__3B75D760">
+          <End Role="Instructors" Type="SchoolModel.Instructor" Multiplicity="1" />
+          <End Role="Courses" Type="SchoolModel.Course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instructors">
+              <PropertyRef Name="InstID" />
+            </Principal>
+            <Dependent Role="Courses">
+              <PropertyRef Name="CourseInst" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Enrollmen__Cours__3E52440B">
+          <End Role="Courses" Type="SchoolModel.Course" Multiplicity="1" />
+          <End Role="Enrollments" Type="SchoolModel.Enrollment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="Enrollments">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Enrollmen__stdID__3F466844">
+          <End Role="Students" Type="SchoolModel.Student" Multiplicity="1" />
+          <End Role="Enrollments" Type="SchoolModel.Enrollment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="stdID" />
+            </Principal>
+            <Dependent Role="Enrollments">
+              <PropertyRef Name="stdID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SchoolEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Courses" EntityType="SchoolModel.Course" />
+          <EntitySet Name="Enrollments" EntityType="SchoolModel.Enrollment" />
+          <EntitySet Name="Instructors" EntityType="SchoolModel.Instructor" />
+          <EntitySet Name="Students" EntityType="SchoolModel.Student" />
+          <AssociationSet Name="FK__Courses__CourseI__3B75D760" Association="Self.FK__Courses__CourseI__3B75D760">
+            <End Role="Instructors" EntitySet="Instructors" />
+            <End Role="Courses" EntitySet="Courses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Enrollmen__Cours__3E52440B" Association="Self.FK__Enrollmen__Cours__3E52440B">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="Enrollments" EntitySet="Enrollments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Enrollmen__stdID__3F466844" Association="Self.FK__Enrollmen__stdID__3F466844">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="Enrollments" EntitySet="Enrollments" />
+          </AssociationSet>
+          <FunctionImport Name="Courses_AddCourse">
+            <Parameter Name="CourseID" Mode="In" Type="Int32" />
+            <Parameter Name="CourseName" Mode="In" Type="String" />
+            <Parameter Name="CourseDesc" Mode="In" Type="String" />
+            <Parameter Name="CourseInst" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Courses_GetAll" EntitySet="Courses" ReturnType="Collection(SchoolModel.Course)" />
+          <FunctionImport Name="Students_UpdateStudent">
+            <Parameter Name="stdID" Mode="In" Type="Int32" />
+            <Parameter Name="stdName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Students_RemoveStudent">
+            <Parameter Name="stdID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Students_GetByStudent" EntitySet="Students" ReturnType="Collection(SchoolModel.Student)">
+            <Parameter Name="stdID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Students_GetByInstructor" EntitySet="Students" ReturnType="Collection(SchoolModel.Student)">
+            <Parameter Name="CourseInst" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Students_GetByCourse" EntitySet="Students" ReturnType="Collection(SchoolModel.Student)">
+            <Parameter Name="CourseID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Students_GetAll" EntitySet="Students" ReturnType="Collection(SchoolModel.Student)" />
+          <FunctionImport Name="Students_AddStudent">
+            <Parameter Name="stdID" Mode="In" Type="Int32" />
+            <Parameter Name="stdName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Instructors_UpdateInstructor">
+            <Parameter Name="InstID" Mode="In" Type="Int32" />
+            <Parameter Name="InstName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Instructors_RemoveInstructor">
+            <Parameter Name="InstID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Instructors_GetByStudent" EntitySet="Instructors" ReturnType="Collection(SchoolModel.Instructor)">
+            <Parameter Name="stdID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Instructors_GetByInstructor" EntitySet="Instructors" ReturnType="Collection(SchoolModel.Instructor)">
+            <Parameter Name="InstID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Courses_GetByCourse" EntitySet="Courses" ReturnType="Collection(SchoolModel.Course)">
+            <Parameter Name="CourseID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Courses_GetByIntructor" EntitySet="Courses" ReturnType="Collection(SchoolModel.Course)">
+            <Parameter Name="CourseInst" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Courses_GetByStudent" EntitySet="Courses" ReturnType="Collection(SchoolModel.Course)">
+            <Parameter Name="stdID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Courses_RemoveCourse">
+            <Parameter Name="CourseID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Courses_UpdateCourse">
+            <Parameter Name="CourseID" Mode="In" Type="Int32" />
+            <Parameter Name="CourseName" Mode="In" Type="String" />
+            <Parameter Name="CourseDesc" Mode="In" Type="String" />
+            <Parameter Name="CourseInst" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Enrollments_AddEnrollment">
+            <Parameter Name="CourseID" Mode="In" Type="Int32" />
+            <Parameter Name="stdID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Enrollments_GetAll" EntitySet="Enrollments" ReturnType="Collection(SchoolModel.Enrollment)" />
+          <FunctionImport Name="Enrollments_GetByCourse" EntitySet="Enrollments" ReturnType="Collection(SchoolModel.Enrollment)">
+            <Parameter Name="CourseID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Enrollments_GetByInstructor" EntitySet="Enrollments" ReturnType="Collection(SchoolModel.Enrollment)">
+            <Parameter Name="CourseInst" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Enrollments_GetByStudent" EntitySet="Enrollments" ReturnType="Collection(SchoolModel.Enrollment)">
+            <Parameter Name="stdID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Enrollments_RemoveEnrollment">
+            <Parameter Name="EnrollID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Enrollments_UpdateEnrollment">
+            <Parameter Name="EnrollID" Mode="In" Type="Int32" />
+            <Parameter Name="CourseID" Mode="In" Type="Int32" />
+            <Parameter Name="stdID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Instructors_GetByCourse" EntitySet="Instructors" ReturnType="Collection(SchoolModel.Instructor)">
+            <Parameter Name="CourseID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Instructors_GetAll" EntitySet="Instructors" ReturnType="Collection(SchoolModel.Instructor)" />
+          <FunctionImport Name="Instrucors_AddInstructor">
+            <Parameter Name="InstID" Mode="In" Type="Int32" />
+            <Parameter Name="InstName" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SchoolModelStoreContainer" CdmEntityContainer="SchoolEntities">
+          <EntitySetMapping Name="Courses">
+            <EntityTypeMapping TypeName="SchoolModel.Course">
+              <MappingFragment StoreEntitySet="Courses">
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+                <ScalarProperty Name="CourseDesc" ColumnName="CourseDesc" />
+                <ScalarProperty Name="CourseInst" ColumnName="CourseInst" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Enrollments">
+            <EntityTypeMapping TypeName="SchoolModel.Enrollment">
+              <MappingFragment StoreEntitySet="Enrollments">
+                <ScalarProperty Name="EnrollID" ColumnName="EnrollID" />
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="stdID" ColumnName="stdID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Instructors">
+            <EntityTypeMapping TypeName="SchoolModel.Instructor">
+              <MappingFragment StoreEntitySet="Instructors">
+                <ScalarProperty Name="InstID" ColumnName="InstID" />
+                <ScalarProperty Name="InstName" ColumnName="InstName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="SchoolModel.Student">
+              <MappingFragment StoreEntitySet="Students">
+                <ScalarProperty Name="stdID" ColumnName="stdID" />
+                <ScalarProperty Name="stdName" ColumnName="stdName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Courses_AddCourse" FunctionName="SchoolModel.Store.Courses_AddCourse" />
+          <FunctionImportMapping FunctionImportName="Courses_GetAll" FunctionName="SchoolModel.Store.Courses_GetAll" />
+          <FunctionImportMapping FunctionImportName="Students_UpdateStudent" FunctionName="SchoolModel.Store.Students_UpdateStudent" />
+          <FunctionImportMapping FunctionImportName="Students_RemoveStudent" FunctionName="SchoolModel.Store.Students_RemoveStudent" />
+          <FunctionImportMapping FunctionImportName="Students_GetByStudent" FunctionName="SchoolModel.Store.Students_GetByStudent" />
+          <FunctionImportMapping FunctionImportName="Students_GetByInstructor" FunctionName="SchoolModel.Store.Students_GetByInstructor" />
+          <FunctionImportMapping FunctionImportName="Students_GetByCourse" FunctionName="SchoolModel.Store.Students_GetByCourse" />
+          <FunctionImportMapping FunctionImportName="Students_GetAll" FunctionName="SchoolModel.Store.Students_GetAll" />
+          <FunctionImportMapping FunctionImportName="Students_AddStudent" FunctionName="SchoolModel.Store.Students_AddStudent" />
+          <FunctionImportMapping FunctionImportName="Instructors_UpdateInstructor" FunctionName="SchoolModel.Store.Instructors_UpdateInstructor" />
+          <FunctionImportMapping FunctionImportName="Instructors_RemoveInstructor" FunctionName="SchoolModel.Store.Instructors_RemoveInstructor" />
+          <FunctionImportMapping FunctionImportName="Instructors_GetByStudent" FunctionName="SchoolModel.Store.Instructors_GetByStudent" />
+          <FunctionImportMapping FunctionImportName="Instructors_GetByInstructor" FunctionName="SchoolModel.Store.Instructors_GetByInstructor" />
+          <FunctionImportMapping FunctionImportName="Courses_GetByCourse" FunctionName="SchoolModel.Store.Courses_GetByCourse" />
+          <FunctionImportMapping FunctionImportName="Courses_GetByIntructor" FunctionName="SchoolModel.Store.Courses_GetByIntructor" />
+          <FunctionImportMapping FunctionImportName="Courses_GetByStudent" FunctionName="SchoolModel.Store.Courses_GetByStudent" />
+          <FunctionImportMapping FunctionImportName="Courses_RemoveCourse" FunctionName="SchoolModel.Store.Courses_RemoveCourse" />
+          <FunctionImportMapping FunctionImportName="Courses_UpdateCourse" FunctionName="SchoolModel.Store.Courses_UpdateCourse" />
+          <FunctionImportMapping FunctionImportName="Enrollments_AddEnrollment" FunctionName="SchoolModel.Store.Enrollments_AddEnrollment" />
+          <FunctionImportMapping FunctionImportName="Enrollments_GetAll" FunctionName="SchoolModel.Store.Enrollments_GetAll" />
+          <FunctionImportMapping FunctionImportName="Enrollments_GetByCourse" FunctionName="SchoolModel.Store.Enrollments_GetByCourse" />
+          <FunctionImportMapping FunctionImportName="Enrollments_GetByInstructor" FunctionName="SchoolModel.Store.Enrollments_GetByInstructor" />
+          <FunctionImportMapping FunctionImportName="Enrollments_GetByStudent" FunctionName="SchoolModel.Store.Enrollments_GetByStudent" />
+          <FunctionImportMapping FunctionImportName="Enrollments_RemoveEnrollment" FunctionName="SchoolModel.Store.Enrollments_RemoveEnrollment" />
+          <FunctionImportMapping FunctionImportName="Enrollments_UpdateEnrollment" FunctionName="SchoolModel.Store.Enrollments_UpdateEnrollment" />
+          <FunctionImportMapping FunctionImportName="Instructors_GetByCourse" FunctionName="SchoolModel.Store.Instructors_GetByCourse" />
+          <FunctionImportMapping FunctionImportName="Instructors_GetAll" FunctionName="SchoolModel.Store.Instructors_GetAll" />
+          <FunctionImportMapping FunctionImportName="Instrucors_AddInstructor" FunctionName="SchoolModel.Store.Instrucors_AddInstructor" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
