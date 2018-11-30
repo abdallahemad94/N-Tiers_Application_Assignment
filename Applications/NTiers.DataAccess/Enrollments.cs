@@ -1,84 +1,130 @@
-﻿using System.Collections;
+﻿using NTiers.Entities;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 
 namespace NTiers.DataLayer
 {
     public class Enrollments : DataManager
     {
-        #region retrive data
+        private List<Enrollment> enrollments;
+
+        #region constructor
+        public Enrollments()
+        {
+            columns = new string[] { "Enrollment ID", "Course ID", "Student ID"};
+            dtypes = new Type[] { typeof(int), typeof(int), typeof(int) };
+            dataTable = SetDataTable(columns, dtypes);
+        }
+        #endregion
+
+        #region retrieve data
         public override DataTable GetAll()
         {
-            SetCommand("Enrollments_GetAll");
-            return GetData();
+            dataTable.Rows.Clear();
+
+            using (context = new SchoolEntities())
+            {
+                enrollments = (from enroll in context.Enrollments select enroll).ToList();
+            }
+
+            foreach (Enrollment enroll in enrollments)
+            {
+                RowValues = new ArrayList() { enroll.EnrollID, enroll.CourseID, enroll.stdID };
+                AddToDataTable(columns, RowValues);
+            }
+
+            return dataTable;
         }
 
         public override DataTable GetByStudent(int stdID)
         {
-            string[] ParamsName = { "@stdID" };
-            ArrayList ParamsValue = new ArrayList() { stdID };
+            dataTable.Rows.Clear();
 
-            SetCommand("Enrollments_GetByStudent");
-            AddParameters(1, ParamsName, ParamsValue);
+            using (context = new SchoolEntities())
+            {
+                enrollments = (from enroll in context.Enrollments where enroll.stdID == stdID select enroll).ToList();
+            }
 
-            return GetData();
+            foreach(Enrollment enroll in enrollments)
+            {
+                RowValues = new ArrayList() { enroll.EnrollID, enroll.CourseID, enroll.stdID };
+                AddToDataTable(columns, RowValues);
+            }
+
+            return dataTable;
         }
 
         public override DataTable GetByCourse(int CourseID)
         {
-            string[] ParamsName = { "@CourseID" };
-            ArrayList ParamsValue = new ArrayList() { CourseID };
+            dataTable.Rows.Clear();
 
-            SetCommand("Enrollments_GetByCourse");
-            AddParameters(1, ParamsName, ParamsValue);
+            using (context = new SchoolEntities())
+            {
+                enrollments = (from enroll in context.Enrollments where enroll.CourseID == CourseID select enroll).ToList();
+            }
 
-            return GetData();
+            foreach (Enrollment enroll in enrollments)
+            {
+                RowValues = new ArrayList() { enroll.EnrollID, enroll.CourseID, enroll.stdID };
+                AddToDataTable(columns, RowValues);
+            }
+
+            return dataTable;
         }
 
         public override DataTable GetByInstructor(int CourseInst)
         {
-            string[] ParamsName = { "@CourseInst" };
-            ArrayList ParamsValue = new ArrayList() { CourseInst };
+            dataTable.Rows.Clear();
 
-            SetCommand("Enrollments_GetByInstructor");
-            AddParameters(1, ParamsName, ParamsValue);
+            using (context = new SchoolEntities())
+            {
+                enrollments = (from enroll in context.Enrollments
+                               join crs in context.Courses
+                               on enroll.CourseID equals crs.CourseID
+                               where crs.CourseInst == CourseInst
+                               select enroll).ToList();
+            }
 
-            return GetData();
+            foreach (Enrollment enroll in enrollments)
+            {
+                RowValues = new ArrayList() { enroll.EnrollID, enroll.CourseID, enroll.stdID };
+                AddToDataTable(columns, RowValues);
+            }
+
+            return dataTable;
         }
         #endregion
 
         #region add date
         public override void AddItem(int CourseID, int stdID)
         {
-            string[] ParamsName = { "@CourseID", "@stdID" };
-            ArrayList ParamsValue = new ArrayList() { CourseID, stdID };
-
-            SetCommand("Enrollments_AddEnrollment");
-            AddParameters(2, ParamsName, ParamsValue);
-            ExecuteNonQuery();
+            using (context = new SchoolEntities())
+            {
+                context.Enrollments_AddEnrollment(CourseID, stdID);
+            }
         }
         #endregion
 
         #region update date
         public override void UpdateItem(int EnrollID, int CourseID, int stdID)
         {
-            string[] ParamsName = { "@EnrollID", "@CourseID", "@stdID" };
-            ArrayList ParamsValue = new ArrayList() { EnrollID, CourseID, stdID };
-
-            SetCommand("Enrollments_UpdateEnrollment");
-            AddParameters(3, ParamsName, ParamsValue);
-            ExecuteNonQuery();
+            using (context = new SchoolEntities())
+            {
+                context.Enrollments_UpdateEnrollment(EnrollID, CourseID, stdID);
+            }
         }
         #endregion
 
         #region remove data
         public override void RemoveItem(int EnrollID)
         {
-            string[] ParamsName = { "@EnrollID" };
-            ArrayList ParamsValue = new ArrayList() { EnrollID };
-
-            SetCommand("Enrollments_RemoveEnrollment");
-            AddParameters(1, ParamsName, ParamsValue);
-            ExecuteNonQuery();
+            using (context = new SchoolEntities())
+            {
+                context.Enrollments_RemoveEnrollment(EnrollID);
+            }
         }
         #endregion
     }

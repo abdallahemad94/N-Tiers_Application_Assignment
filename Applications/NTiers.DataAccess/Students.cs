@@ -1,84 +1,136 @@
-﻿using System.Collections;
+﻿using NTiers.Entities;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 
 namespace NTiers.DataLayer
 {
     public class Students : DataManager
     {
-        #region retrive data
+        private List<Student> students;
+
+        #region constructor
+        public Students()
+        {
+            columns = new string[] { "Student ID", "Student Name" };
+            dtypes = new Type[] { typeof(int), typeof(string) };
+            dataTable = SetDataTable(columns, dtypes);
+        }
+        #endregion
+
+        #region retrieve data
         public override DataTable GetAll()
         {
-            SetCommand("Students_GetAll");
-            return GetData();
+            dataTable.Rows.Clear();
+
+            using (context = new SchoolEntities())
+            {
+                students = (from std in context.Students select std).ToList();
+            }
+
+            foreach (Student std in students)
+            {
+                RowValues = new ArrayList() { std.stdID, std.stdName };
+                AddToDataTable(columns, RowValues);
+            }
+
+            return dataTable;
         }
 
         public override DataTable GetByStudent(int stdID)
         {
-            string[] ParamsName = { "@stdID" };
-            ArrayList ParamsValue = new ArrayList() { stdID };
+            dataTable.Rows.Clear();
 
-            SetCommand("Students_GetByStudent");
-            AddParameters(1, ParamsName, ParamsValue);
+            using (context = new SchoolEntities())
+            {
+                students = (from std in context.Students where std.stdID == stdID select std).ToList();
+            }
 
-            return GetData();
+            foreach (Student std in students)
+            {
+                RowValues = new ArrayList() { std.stdID, std.stdName };
+                AddToDataTable(columns, RowValues);
+            }
+
+            return dataTable;
         }
 
         public override DataTable GetByCourse(int CourseID)
         {
-            string[] ParamsName = { "@CourseID" };
-            ArrayList ParamsValue = new ArrayList() { CourseID };
+            dataTable.Rows.Clear();
 
-            SetCommand("Students_GetByCourse");
-            AddParameters(1, ParamsName, ParamsValue);
+            using (context = new SchoolEntities())
+            {
+                students = (from std in context.Students 
+                            join enroll in context.Enrollments
+                            on std.stdID equals enroll.stdID
+                            where enroll.CourseID == CourseID
+                            select std).ToList();
+            }
 
-            return GetData();
+            foreach (Student std in students)
+            {
+                RowValues = new ArrayList() { std.stdID, std.stdName };
+                AddToDataTable(columns, RowValues);
+            }
+
+            return dataTable;
         }
 
         public override DataTable GetByInstructor(int CourseInst)
         {
-            string[] ParamsName = { "@CourseInst" };
-            ArrayList ParamsValue = new ArrayList() { CourseInst };
+            dataTable.Rows.Clear();
 
-            SetCommand("Students_GetByInstructor");
-            AddParameters(1, ParamsName, ParamsValue);
+            using (context = new SchoolEntities())
+            {
+                students = (from std in context.Students
+                            join enroll in context.Enrollments
+                            on std.stdID equals enroll.stdID
+                            join course in context.Courses
+                            on enroll.CourseID equals course.CourseID
+                            where course.CourseInst == CourseInst
+                            select std).ToList();
+            }
 
-            return GetData();
+            foreach (Student std in students)
+            {
+                RowValues = new ArrayList() { std.stdID, std.stdName };
+                AddToDataTable(columns, RowValues);
+            }
+
+            return dataTable;
         }
         #endregion
 
         #region add data
         public override void AddItem(int stdID, string stdName)
         {
-            string[] ParamsName = { "@stdID", "@stdName" };
-            ArrayList ParamsValue = new ArrayList() { stdID, stdName };
-
-            SetCommand("Students_AddStudent");
-            AddParameters(2, ParamsName, ParamsValue);
-            ExecuteNonQuery();
+            using (context = new SchoolEntities())
+            {
+                context.Students_AddStudent(stdID, stdName);
+            }
         }
         #endregion
 
         #region update data
         public override void UpdateItem(int stdID, string stdName)
         {
-            string[] ParamsName = { "@stdID", "@stdName" };
-            ArrayList ParamsValue = new ArrayList() { stdID, stdName };
-
-            SetCommand("Students_UpdateStudent");
-            AddParameters(2, ParamsName, ParamsValue);
-            ExecuteNonQuery();
+            using (context = new SchoolEntities())
+            {
+                context.Students_UpdateStudent(stdID, stdName);
+            }
         }
         #endregion
 
         #region remove data
         public override void RemoveItem(int stdID)
         {
-            string[] ParamsName = { "@stdID" };
-            ArrayList ParamsValue = new ArrayList() { stdID };
-
-            SetCommand("Students_RemoveStudent");
-            AddParameters(1, ParamsName, ParamsValue);
-            ExecuteNonQuery();
+            using (context = new SchoolEntities())
+            {
+                context.Students_RemoveStudent(stdID);
+            }
         }
         #endregion
     }
