@@ -53,16 +53,6 @@ namespace NTiers.Entities
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Courses_AddCourse", courseIDParameter, courseNameParameter, courseDescParameter, courseInstParameter);
         }
     
-        public virtual ObjectResult<Course> Courses_GetAll()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Course>("Courses_GetAll");
-        }
-    
-        public virtual ObjectResult<Course> Courses_GetAll(MergeOption mergeOption)
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Course>("Courses_GetAll", mergeOption);
-        }
-    
         public virtual int Students_UpdateStudent(Nullable<int> stdID, string stdName)
         {
             var stdIDParameter = stdID.HasValue ?
@@ -83,70 +73,6 @@ namespace NTiers.Entities
                 new ObjectParameter("stdID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Students_RemoveStudent", stdIDParameter);
-        }
-    
-        public virtual ObjectResult<Student> Students_GetByStudent(Nullable<int> stdID)
-        {
-            var stdIDParameter = stdID.HasValue ?
-                new ObjectParameter("stdID", stdID) :
-                new ObjectParameter("stdID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Student>("Students_GetByStudent", stdIDParameter);
-        }
-    
-        public virtual ObjectResult<Student> Students_GetByStudent(Nullable<int> stdID, MergeOption mergeOption)
-        {
-            var stdIDParameter = stdID.HasValue ?
-                new ObjectParameter("stdID", stdID) :
-                new ObjectParameter("stdID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Student>("Students_GetByStudent", mergeOption, stdIDParameter);
-        }
-    
-        public virtual ObjectResult<Student> Students_GetByInstructor(Nullable<int> courseInst)
-        {
-            var courseInstParameter = courseInst.HasValue ?
-                new ObjectParameter("CourseInst", courseInst) :
-                new ObjectParameter("CourseInst", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Student>("Students_GetByInstructor", courseInstParameter);
-        }
-    
-        public virtual ObjectResult<Student> Students_GetByInstructor(Nullable<int> courseInst, MergeOption mergeOption)
-        {
-            var courseInstParameter = courseInst.HasValue ?
-                new ObjectParameter("CourseInst", courseInst) :
-                new ObjectParameter("CourseInst", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Student>("Students_GetByInstructor", mergeOption, courseInstParameter);
-        }
-    
-        public virtual ObjectResult<Student> Students_GetByCourse(Nullable<int> courseID)
-        {
-            var courseIDParameter = courseID.HasValue ?
-                new ObjectParameter("CourseID", courseID) :
-                new ObjectParameter("CourseID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Student>("Students_GetByCourse", courseIDParameter);
-        }
-    
-        public virtual ObjectResult<Student> Students_GetByCourse(Nullable<int> courseID, MergeOption mergeOption)
-        {
-            var courseIDParameter = courseID.HasValue ?
-                new ObjectParameter("CourseID", courseID) :
-                new ObjectParameter("CourseID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Student>("Students_GetByCourse", mergeOption, courseIDParameter);
-        }
-    
-        public virtual ObjectResult<Student> Students_GetAll()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Student>("Students_GetAll");
-        }
-    
-        public virtual ObjectResult<Student> Students_GetAll(MergeOption mergeOption)
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Student>("Students_GetAll", mergeOption);
         }
     
         public virtual int Students_AddStudent(Nullable<int> stdID, string stdName)
@@ -182,96 +108,6 @@ namespace NTiers.Entities
                 new ObjectParameter("InstID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Instructors_RemoveInstructor", instIDParameter);
-        }
-    
-        public virtual ObjectResult<Instructor> Instructors_GetByStudent(Nullable<int> stdID)
-        {
-            var stdIDParameter = stdID.HasValue ?
-                new ObjectParameter("stdID", stdID) :
-                new ObjectParameter("stdID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Instructor>("Instructors_GetByStudent", stdIDParameter);
-        }
-    
-        public virtual ObjectResult<Instructor> Instructors_GetByStudent(Nullable<int> stdID, MergeOption mergeOption)
-        {
-            var stdIDParameter = stdID.HasValue ?
-                new ObjectParameter("stdID", stdID) :
-                new ObjectParameter("stdID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Instructor>("Instructors_GetByStudent", mergeOption, stdIDParameter);
-        }
-    
-        public virtual ObjectResult<Instructor> Instructors_GetByInstructor(Nullable<int> instID)
-        {
-            var instIDParameter = instID.HasValue ?
-                new ObjectParameter("InstID", instID) :
-                new ObjectParameter("InstID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Instructor>("Instructors_GetByInstructor", instIDParameter);
-        }
-    
-        public virtual ObjectResult<Instructor> Instructors_GetByInstructor(Nullable<int> instID, MergeOption mergeOption)
-        {
-            var instIDParameter = instID.HasValue ?
-                new ObjectParameter("InstID", instID) :
-                new ObjectParameter("InstID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Instructor>("Instructors_GetByInstructor", mergeOption, instIDParameter);
-        }
-    
-        public virtual ObjectResult<Course> Courses_GetByCourse(Nullable<int> courseID)
-        {
-            var courseIDParameter = courseID.HasValue ?
-                new ObjectParameter("CourseID", courseID) :
-                new ObjectParameter("CourseID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Course>("Courses_GetByCourse", courseIDParameter);
-        }
-    
-        public virtual ObjectResult<Course> Courses_GetByCourse(Nullable<int> courseID, MergeOption mergeOption)
-        {
-            var courseIDParameter = courseID.HasValue ?
-                new ObjectParameter("CourseID", courseID) :
-                new ObjectParameter("CourseID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Course>("Courses_GetByCourse", mergeOption, courseIDParameter);
-        }
-    
-        public virtual ObjectResult<Course> Courses_GetByIntructor(Nullable<int> courseInst)
-        {
-            var courseInstParameter = courseInst.HasValue ?
-                new ObjectParameter("CourseInst", courseInst) :
-                new ObjectParameter("CourseInst", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Course>("Courses_GetByIntructor", courseInstParameter);
-        }
-    
-        public virtual ObjectResult<Course> Courses_GetByIntructor(Nullable<int> courseInst, MergeOption mergeOption)
-        {
-            var courseInstParameter = courseInst.HasValue ?
-                new ObjectParameter("CourseInst", courseInst) :
-                new ObjectParameter("CourseInst", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Course>("Courses_GetByIntructor", mergeOption, courseInstParameter);
-        }
-    
-        public virtual ObjectResult<Course> Courses_GetByStudent(Nullable<int> stdID)
-        {
-            var stdIDParameter = stdID.HasValue ?
-                new ObjectParameter("stdID", stdID) :
-                new ObjectParameter("stdID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Course>("Courses_GetByStudent", stdIDParameter);
-        }
-    
-        public virtual ObjectResult<Course> Courses_GetByStudent(Nullable<int> stdID, MergeOption mergeOption)
-        {
-            var stdIDParameter = stdID.HasValue ?
-                new ObjectParameter("stdID", stdID) :
-                new ObjectParameter("stdID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Course>("Courses_GetByStudent", mergeOption, stdIDParameter);
         }
     
         public virtual int Courses_RemoveCourse(Nullable<int> courseID)
@@ -317,70 +153,6 @@ namespace NTiers.Entities
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Enrollments_AddEnrollment", courseIDParameter, stdIDParameter);
         }
     
-        public virtual ObjectResult<Enrollment> Enrollments_GetAll()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Enrollment>("Enrollments_GetAll");
-        }
-    
-        public virtual ObjectResult<Enrollment> Enrollments_GetAll(MergeOption mergeOption)
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Enrollment>("Enrollments_GetAll", mergeOption);
-        }
-    
-        public virtual ObjectResult<Enrollment> Enrollments_GetByCourse(Nullable<int> courseID)
-        {
-            var courseIDParameter = courseID.HasValue ?
-                new ObjectParameter("CourseID", courseID) :
-                new ObjectParameter("CourseID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Enrollment>("Enrollments_GetByCourse", courseIDParameter);
-        }
-    
-        public virtual ObjectResult<Enrollment> Enrollments_GetByCourse(Nullable<int> courseID, MergeOption mergeOption)
-        {
-            var courseIDParameter = courseID.HasValue ?
-                new ObjectParameter("CourseID", courseID) :
-                new ObjectParameter("CourseID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Enrollment>("Enrollments_GetByCourse", mergeOption, courseIDParameter);
-        }
-    
-        public virtual ObjectResult<Enrollment> Enrollments_GetByInstructor(Nullable<int> courseInst)
-        {
-            var courseInstParameter = courseInst.HasValue ?
-                new ObjectParameter("CourseInst", courseInst) :
-                new ObjectParameter("CourseInst", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Enrollment>("Enrollments_GetByInstructor", courseInstParameter);
-        }
-    
-        public virtual ObjectResult<Enrollment> Enrollments_GetByInstructor(Nullable<int> courseInst, MergeOption mergeOption)
-        {
-            var courseInstParameter = courseInst.HasValue ?
-                new ObjectParameter("CourseInst", courseInst) :
-                new ObjectParameter("CourseInst", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Enrollment>("Enrollments_GetByInstructor", mergeOption, courseInstParameter);
-        }
-    
-        public virtual ObjectResult<Enrollment> Enrollments_GetByStudent(Nullable<int> stdID)
-        {
-            var stdIDParameter = stdID.HasValue ?
-                new ObjectParameter("stdID", stdID) :
-                new ObjectParameter("stdID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Enrollment>("Enrollments_GetByStudent", stdIDParameter);
-        }
-    
-        public virtual ObjectResult<Enrollment> Enrollments_GetByStudent(Nullable<int> stdID, MergeOption mergeOption)
-        {
-            var stdIDParameter = stdID.HasValue ?
-                new ObjectParameter("stdID", stdID) :
-                new ObjectParameter("stdID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Enrollment>("Enrollments_GetByStudent", mergeOption, stdIDParameter);
-        }
-    
         public virtual int Enrollments_RemoveEnrollment(Nullable<int> enrollID)
         {
             var enrollIDParameter = enrollID.HasValue ?
@@ -405,34 +177,6 @@ namespace NTiers.Entities
                 new ObjectParameter("stdID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Enrollments_UpdateEnrollment", enrollIDParameter, courseIDParameter, stdIDParameter);
-        }
-    
-        public virtual ObjectResult<Instructor> Instructors_GetByCourse(Nullable<int> courseID)
-        {
-            var courseIDParameter = courseID.HasValue ?
-                new ObjectParameter("CourseID", courseID) :
-                new ObjectParameter("CourseID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Instructor>("Instructors_GetByCourse", courseIDParameter);
-        }
-    
-        public virtual ObjectResult<Instructor> Instructors_GetByCourse(Nullable<int> courseID, MergeOption mergeOption)
-        {
-            var courseIDParameter = courseID.HasValue ?
-                new ObjectParameter("CourseID", courseID) :
-                new ObjectParameter("CourseID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Instructor>("Instructors_GetByCourse", mergeOption, courseIDParameter);
-        }
-    
-        public virtual ObjectResult<Instructor> Instructors_GetAll()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Instructor>("Instructors_GetAll");
-        }
-    
-        public virtual ObjectResult<Instructor> Instructors_GetAll(MergeOption mergeOption)
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Instructor>("Instructors_GetAll", mergeOption);
         }
     
         public virtual int Instrucors_AddInstructor(Nullable<int> instID, string instName)

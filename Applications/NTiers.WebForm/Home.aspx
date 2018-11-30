@@ -7,8 +7,8 @@
 <head runat="server">
     <meta charset="utf-8" />
     <title>NTiers Application</title>
-    <link href="Styles/Home.css" rel="stylesheet" type="text/css" />
     <script src="Scripts/jquery-3.3.1.js" type="text/javascript"></script>
+    <link href="Styles/Home.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -92,10 +92,11 @@
                 </Triggers>
 
                 <ContentTemplate>
-                    <asp:GridView ID="dataGrid" runat="server" CellPadding="3" ForeColor="#333333" GridLines="None" HorizontalAlign="Center" 
+                    <asp:GridView ID="dataGrid" runat="server" CellPadding="3" ForeColor="#333333" HorizontalAlign="Center" 
                         CellSpacing="1" OnRowDeleting="dataGrid_RowDeleting" OnRowEditing="dataGrid_RowEditing" 
                         OnRowCancelingEdit="dataGrid_RowCancelingEdit" 
-                        OnRowUpdating="dataGrid_RowUpdating">  
+                        OnRowUpdating="dataGrid_RowUpdating" ClientIDMode="Static" AllowSorting="True" 
+                        OnSorting="dataGrid_Sorting">  
                         <Columns>
                             <asp:CommandField ButtonType="Button" ShowDeleteButton="True" />
                             <asp:TemplateField>
@@ -103,7 +104,7 @@
                                     <asp:Button Text="Edit" runat="server" CommandName="Edit" />
                                 </ItemTemplate>
                                 <EditItemTemplate>
-                                    <asp:Button Text="Update" runat="server" CommandName="Update"/>
+                                    <asp:Button Text="Update" runat="server" CommandName="Update" />
                                     <asp:Button Text="Cancel" runat="server" CommandName="Cancel" />
                                 </EditItemTemplate>
                             </asp:TemplateField>
@@ -115,11 +116,7 @@
                         <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />  
                         <RowStyle BackColor="#EFF3FB" HorizontalAlign="Center" />  
                         <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />  
-                        <SortedAscendingCellStyle BackColor="#F5F7FB" />  
-                        <SortedAscendingHeaderStyle BackColor="#6D95E1" />  
-                        <SortedDescendingCellStyle BackColor="#E9EBEF" />  
-                        <SortedDescendingHeaderStyle BackColor="#4870BE" />  
-                    </asp:GridView> 
+                    </asp:GridView>
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>

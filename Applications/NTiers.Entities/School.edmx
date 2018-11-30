@@ -280,7 +280,6 @@
             <Parameter Name="CourseDesc" Mode="In" Type="String" />
             <Parameter Name="CourseInst" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="Courses_GetAll" EntitySet="Courses" ReturnType="Collection(SchoolModel.Course)" />
           <FunctionImport Name="Students_UpdateStudent">
             <Parameter Name="stdID" Mode="In" Type="Int32" />
             <Parameter Name="stdName" Mode="In" Type="String" />
@@ -288,16 +287,6 @@
           <FunctionImport Name="Students_RemoveStudent">
             <Parameter Name="stdID" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="Students_GetByStudent" EntitySet="Students" ReturnType="Collection(SchoolModel.Student)">
-            <Parameter Name="stdID" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="Students_GetByInstructor" EntitySet="Students" ReturnType="Collection(SchoolModel.Student)">
-            <Parameter Name="CourseInst" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="Students_GetByCourse" EntitySet="Students" ReturnType="Collection(SchoolModel.Student)">
-            <Parameter Name="CourseID" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="Students_GetAll" EntitySet="Students" ReturnType="Collection(SchoolModel.Student)" />
           <FunctionImport Name="Students_AddStudent">
             <Parameter Name="stdID" Mode="In" Type="Int32" />
             <Parameter Name="stdName" Mode="In" Type="String" />
@@ -308,21 +297,6 @@
           </FunctionImport>
           <FunctionImport Name="Instructors_RemoveInstructor">
             <Parameter Name="InstID" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="Instructors_GetByStudent" EntitySet="Instructors" ReturnType="Collection(SchoolModel.Instructor)">
-            <Parameter Name="stdID" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="Instructors_GetByInstructor" EntitySet="Instructors" ReturnType="Collection(SchoolModel.Instructor)">
-            <Parameter Name="InstID" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="Courses_GetByCourse" EntitySet="Courses" ReturnType="Collection(SchoolModel.Course)">
-            <Parameter Name="CourseID" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="Courses_GetByIntructor" EntitySet="Courses" ReturnType="Collection(SchoolModel.Course)">
-            <Parameter Name="CourseInst" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="Courses_GetByStudent" EntitySet="Courses" ReturnType="Collection(SchoolModel.Course)">
-            <Parameter Name="stdID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Courses_RemoveCourse">
             <Parameter Name="CourseID" Mode="In" Type="Int32" />
@@ -337,16 +311,6 @@
             <Parameter Name="CourseID" Mode="In" Type="Int32" />
             <Parameter Name="stdID" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="Enrollments_GetAll" EntitySet="Enrollments" ReturnType="Collection(SchoolModel.Enrollment)" />
-          <FunctionImport Name="Enrollments_GetByCourse" EntitySet="Enrollments" ReturnType="Collection(SchoolModel.Enrollment)">
-            <Parameter Name="CourseID" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="Enrollments_GetByInstructor" EntitySet="Enrollments" ReturnType="Collection(SchoolModel.Enrollment)">
-            <Parameter Name="CourseInst" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="Enrollments_GetByStudent" EntitySet="Enrollments" ReturnType="Collection(SchoolModel.Enrollment)">
-            <Parameter Name="stdID" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="Enrollments_RemoveEnrollment">
             <Parameter Name="EnrollID" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -355,10 +319,6 @@
             <Parameter Name="CourseID" Mode="In" Type="Int32" />
             <Parameter Name="stdID" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="Instructors_GetByCourse" EntitySet="Instructors" ReturnType="Collection(SchoolModel.Instructor)">
-            <Parameter Name="CourseID" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="Instructors_GetAll" EntitySet="Instructors" ReturnType="Collection(SchoolModel.Instructor)" />
           <FunctionImport Name="Instrucors_AddInstructor">
             <Parameter Name="InstID" Mode="In" Type="Int32" />
             <Parameter Name="InstName" Mode="In" Type="String" />
@@ -406,32 +366,16 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="Courses_AddCourse" FunctionName="SchoolModel.Store.Courses_AddCourse" />
-          <FunctionImportMapping FunctionImportName="Courses_GetAll" FunctionName="SchoolModel.Store.Courses_GetAll" />
           <FunctionImportMapping FunctionImportName="Students_UpdateStudent" FunctionName="SchoolModel.Store.Students_UpdateStudent" />
           <FunctionImportMapping FunctionImportName="Students_RemoveStudent" FunctionName="SchoolModel.Store.Students_RemoveStudent" />
-          <FunctionImportMapping FunctionImportName="Students_GetByStudent" FunctionName="SchoolModel.Store.Students_GetByStudent" />
-          <FunctionImportMapping FunctionImportName="Students_GetByInstructor" FunctionName="SchoolModel.Store.Students_GetByInstructor" />
-          <FunctionImportMapping FunctionImportName="Students_GetByCourse" FunctionName="SchoolModel.Store.Students_GetByCourse" />
-          <FunctionImportMapping FunctionImportName="Students_GetAll" FunctionName="SchoolModel.Store.Students_GetAll" />
           <FunctionImportMapping FunctionImportName="Students_AddStudent" FunctionName="SchoolModel.Store.Students_AddStudent" />
           <FunctionImportMapping FunctionImportName="Instructors_UpdateInstructor" FunctionName="SchoolModel.Store.Instructors_UpdateInstructor" />
           <FunctionImportMapping FunctionImportName="Instructors_RemoveInstructor" FunctionName="SchoolModel.Store.Instructors_RemoveInstructor" />
-          <FunctionImportMapping FunctionImportName="Instructors_GetByStudent" FunctionName="SchoolModel.Store.Instructors_GetByStudent" />
-          <FunctionImportMapping FunctionImportName="Instructors_GetByInstructor" FunctionName="SchoolModel.Store.Instructors_GetByInstructor" />
-          <FunctionImportMapping FunctionImportName="Courses_GetByCourse" FunctionName="SchoolModel.Store.Courses_GetByCourse" />
-          <FunctionImportMapping FunctionImportName="Courses_GetByIntructor" FunctionName="SchoolModel.Store.Courses_GetByIntructor" />
-          <FunctionImportMapping FunctionImportName="Courses_GetByStudent" FunctionName="SchoolModel.Store.Courses_GetByStudent" />
           <FunctionImportMapping FunctionImportName="Courses_RemoveCourse" FunctionName="SchoolModel.Store.Courses_RemoveCourse" />
           <FunctionImportMapping FunctionImportName="Courses_UpdateCourse" FunctionName="SchoolModel.Store.Courses_UpdateCourse" />
           <FunctionImportMapping FunctionImportName="Enrollments_AddEnrollment" FunctionName="SchoolModel.Store.Enrollments_AddEnrollment" />
-          <FunctionImportMapping FunctionImportName="Enrollments_GetAll" FunctionName="SchoolModel.Store.Enrollments_GetAll" />
-          <FunctionImportMapping FunctionImportName="Enrollments_GetByCourse" FunctionName="SchoolModel.Store.Enrollments_GetByCourse" />
-          <FunctionImportMapping FunctionImportName="Enrollments_GetByInstructor" FunctionName="SchoolModel.Store.Enrollments_GetByInstructor" />
-          <FunctionImportMapping FunctionImportName="Enrollments_GetByStudent" FunctionName="SchoolModel.Store.Enrollments_GetByStudent" />
           <FunctionImportMapping FunctionImportName="Enrollments_RemoveEnrollment" FunctionName="SchoolModel.Store.Enrollments_RemoveEnrollment" />
           <FunctionImportMapping FunctionImportName="Enrollments_UpdateEnrollment" FunctionName="SchoolModel.Store.Enrollments_UpdateEnrollment" />
-          <FunctionImportMapping FunctionImportName="Instructors_GetByCourse" FunctionName="SchoolModel.Store.Instructors_GetByCourse" />
-          <FunctionImportMapping FunctionImportName="Instructors_GetAll" FunctionName="SchoolModel.Store.Instructors_GetAll" />
           <FunctionImportMapping FunctionImportName="Instrucors_AddInstructor" FunctionName="SchoolModel.Store.Instrucors_AddInstructor" />
         </EntityContainerMapping>
       </Mapping>

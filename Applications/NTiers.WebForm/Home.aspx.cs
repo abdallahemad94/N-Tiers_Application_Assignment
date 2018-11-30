@@ -131,8 +131,8 @@ namespace NTiers.WebForm
 
         protected void dataGrid_RowEditing(object sender, GridViewEditEventArgs e)
         {
-           dataGrid.EditIndex = e.NewEditIndex;
-           this.dataGrid_Update();
+            dataGrid.EditIndex = e.NewEditIndex;
+            this.dataGrid_Update();
         }
 
         protected void dataGrid_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
@@ -169,6 +169,14 @@ namespace NTiers.WebForm
                 dataGrid.EditIndex = -1;
                 GetData(SelectedTable);
             }
+        }
+
+        protected void dataGrid_Sorting(object sender, GridViewSortEventArgs e)
+        {
+            DataTable dt = ViewState["dt"] as DataTable;
+            dt.DefaultView.Sort = e.SortExpression + " " + e.SortDirection.ToString().Substring(0,3);
+            ViewState["dt"] = dt;
+            dataGrid_Update();
         }
         #endregion
 
@@ -207,5 +215,6 @@ namespace NTiers.WebForm
             }
         }
         #endregion
+
     }
 }

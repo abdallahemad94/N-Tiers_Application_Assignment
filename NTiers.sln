@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NTiers.AppLogic", "Applicat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NTiers.WebForm", "Applications\NTiers.WebForm\NTiers.WebForm.csproj", "{7DE74B81-9C3D-4283-8F1F-317644E66740}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NTiers.Entities", "Applications\NTiers.Entities\NTiers.Entities.csproj", "{F644C64B-7FB3-4C7E-8F05-ED8CEB9CC49D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{7DE74B81-9C3D-4283-8F1F-317644E66740}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DE74B81-9C3D-4283-8F1F-317644E66740}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7DE74B81-9C3D-4283-8F1F-317644E66740}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F644C64B-7FB3-4C7E-8F05-ED8CEB9CC49D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F644C64B-7FB3-4C7E-8F05-ED8CEB9CC49D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F644C64B-7FB3-4C7E-8F05-ED8CEB9CC49D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F644C64B-7FB3-4C7E-8F05-ED8CEB9CC49D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
