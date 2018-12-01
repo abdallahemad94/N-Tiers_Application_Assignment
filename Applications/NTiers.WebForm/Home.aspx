@@ -92,11 +92,11 @@
                 </Triggers>
 
                 <ContentTemplate>
-                    <asp:GridView ID="dataGrid" runat="server" CellPadding="3" ForeColor="#333333" HorizontalAlign="Center" 
-                        CellSpacing="1" OnRowDeleting="dataGrid_RowDeleting" OnRowEditing="dataGrid_RowEditing" 
-                        OnRowCancelingEdit="dataGrid_RowCancelingEdit" 
-                        OnRowUpdating="dataGrid_RowUpdating" ClientIDMode="Static" AllowSorting="True" 
-                        OnSorting="dataGrid_Sorting">  
+                    <asp:GridView ID="gridView" runat="server" CellPadding="3" ForeColor="#333333" HorizontalAlign="Center" 
+                        CellSpacing="1" OnRowDeleting="gridView_RowDeleting" OnRowEditing="gridView_RowEditing" 
+                        OnRowCancelingEdit="gridView_RowCancelingEdit" 
+                        OnRowUpdating="gridView_RowUpdating" ClientIDMode="Static" AllowSorting="True" 
+                        OnSorting="gridView_Sorting">  
                         <Columns>
                             <asp:CommandField ButtonType="Button" ShowDeleteButton="True" />
                             <asp:TemplateField>

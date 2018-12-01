@@ -31,7 +31,7 @@ namespace NTiers.WebForm
                 dataTable = viewData.GetUnFilterdData();
             }
             ViewState["dt"] = dataTable;
-            dataGrid_Update();
+            gridView_Update();
         }
 
         #region Tables drop down list events
@@ -52,8 +52,8 @@ namespace NTiers.WebForm
         {
             string SelectedTable = ddlTables.SelectedValue;
 
-            dataGrid.SelectedIndex = -1;
-            dataGrid.EditIndex = -1;
+            gridView.SelectedIndex = -1;
+            gridView.EditIndex = -1;
 
             if (SelectedTable != "None")
             {
@@ -61,8 +61,8 @@ namespace NTiers.WebForm
             }
             else
             {
-                dataGrid.DataSource = null;
-                dataGrid.DataBind();
+                gridView.DataSource = null;
+                gridView.DataBind();
             }
         }
         #endregion
@@ -113,35 +113,35 @@ namespace NTiers.WebForm
         }
         #endregion
 
-        #region dataGrid Events and methods
-        protected void dataGrid_Update()
+        #region gridView Events and methods
+        protected void gridView_Update()
         {
-            dataGrid.DataSource = ViewState["dt"] as DataTable;
-            dataGrid.DataBind();
+            gridView.DataSource = ViewState["dt"] as DataTable;
+            gridView.DataBind();
         }
 
-        protected void dataGrid_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        protected void gridView_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             string SelectedTable = ddlTables.SelectedValue;
-            string id = dataGrid.Rows[e.RowIndex].Cells[2].Text;
+            string id = gridView.Rows[e.RowIndex].Cells[2].Text;
             DeleteAccess deleteData = new DeleteAccess(SelectedTable);
             deleteData.DeleteItem(id);
             GetData(SelectedTable);
         }
 
-        protected void dataGrid_RowEditing(object sender, GridViewEditEventArgs e)
+        protected void gridView_RowEditing(object sender, GridViewEditEventArgs e)
         {
-            dataGrid.EditIndex = e.NewEditIndex;
-            this.dataGrid_Update();
+            gridView.EditIndex = e.NewEditIndex;
+            this.gridView_Update();
         }
 
-        protected void dataGrid_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+        protected void gridView_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
-            dataGrid.EditIndex = -1;
-            this.dataGrid_Update();
+            gridView.EditIndex = -1;
+            this.gridView_Update();
         }
 
-        protected void dataGrid_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        protected void gridView_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
             if (Page.IsValid)
             {
@@ -165,18 +165,41 @@ namespace NTiers.WebForm
                         updateData.UpdateItem(id, name);
                         break;
                 }
-                dataGrid.SelectedIndex = -1;
-                dataGrid.EditIndex = -1;
+                gridView.SelectedIndex = -1;
+                gridView.EditIndex = -1;
                 GetData(SelectedTable);
             }
         }
 
-        protected void dataGrid_Sorting(object sender, GridViewSortEventArgs e)
+        protected void gridView_Sorting(object sender, GridViewSortEventArgs e)
         {
             DataTable dt = ViewState["dt"] as DataTable;
-            dt.DefaultView.Sort = e.SortExpression + " " + e.SortDirection.ToString().Substring(0,3);
+            dt.DefaultView.Sort = e.SortExpression + " " + GetSortDirection(e.SortExpression);
             ViewState["dt"] = dt;
-            dataGrid_Update();
+            gridView_Update();
+        }
+
+        protected string GetSortDirection(string column)
+        {
+            string lastSortColumn = ViewState["SortExpression"] as string;
+            string lastSortDirection = ViewState["SortDirection"] as string;
+
+            if (lastSortColumn != null)
+            {
+                if (lastSortColumn == column)
+                {
+                    if (lastSortDirection == "ASC")
+                    {
+                        ViewState["SortExpression"] = column;
+                        ViewState["SortDirection"] = "DESC";
+                        return "DESC";
+                    }
+                }
+            }
+
+            ViewState["SortExpression"] = column;
+            ViewState["SortDirection"] = "ASC";
+            return "ASC";
         }
         #endregion
 

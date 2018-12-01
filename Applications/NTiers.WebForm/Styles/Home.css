@@ -25,7 +25,7 @@ input[type="text"] {
     width: 15em;
 }
 
-#dataGrid tr:hover td{
+#gridView tr:hover td{
     background-color: #0094ff;
     color: #fff;
 }
