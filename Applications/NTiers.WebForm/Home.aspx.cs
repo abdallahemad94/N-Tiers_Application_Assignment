@@ -16,24 +16,6 @@ namespace NTiers.WebForm
             ddlFilter.Attributes.Add("onchange", "ddlFilter_Change()");
         }
 
-        protected void GetData(string selectedTable, string SelectedFilter = "None")
-        {
-            ViewAccess viewData = new ViewAccess(selectedTable);
-            DataTable dataTable;
-
-            if (SelectedFilter != "None")
-            {
-                string FilterID = txtFilterID.Text;
-                dataTable = viewData.GetFilterdData(SelectedFilter, FilterID);
-            }
-            else
-            {
-                dataTable = viewData.GetUnFilterdData();
-            }
-            ViewState["dt"] = dataTable;
-            gridView_Update();
-        }
-
         #region Tables drop down list events
         /// <summary>
         /// gets a list of the database tables name and append it
@@ -203,7 +185,7 @@ namespace NTiers.WebForm
         }
         #endregion
 
-        #region Other Events
+        #region Other Events and methods
         protected void btnFilter_Click(object sender, EventArgs e)
         {
             if (Page.IsValid)
@@ -237,7 +219,24 @@ namespace NTiers.WebForm
                 GetData(SelectedTable);
             }
         }
-        #endregion
 
+        protected void GetData(string selectedTable, string SelectedFilter = "None")
+        {
+            ViewAccess viewData = new ViewAccess(selectedTable);
+            DataTable dataTable;
+
+            if (SelectedFilter != "None")
+            {
+                string FilterID = txtFilterID.Text;
+                dataTable = viewData.GetFilterdData(SelectedFilter, FilterID);
+            }
+            else
+            {
+                dataTable = viewData.GetUnFilterdData();
+            }
+            ViewState["dt"] = dataTable;
+            gridView_Update();
+        }
+        #endregion
     }
 }
